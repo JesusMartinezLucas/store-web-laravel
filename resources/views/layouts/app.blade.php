@@ -8,7 +8,35 @@
 
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
     </head>
-    <body class="bg-gray-100">
+    <body class="bg-gray-200">
+        <nav class="p-6 bg-white flex justify-between mb-6">
+            <ul class="flex items-center">
+                <li>
+                    <a href="" class="p-3">Inicio</a>
+                </li>
+                <li>
+                    <a href="" class="p-3">Panel</a>
+                </li>
+                <li>
+                    <a href="" class="p-3">Producto</a>
+                </li>
+            </ul>
+
+            <ul class="flex items-center">
+                <li>
+                    <a href="" class="p-3">Jesús Martínez</a>
+                </li>
+                <li>
+                    <a href="" class="p-3">Iniciar sesión</a>
+                </li>
+                <li>
+                    <a href="" class="p-3">Registrar</a>
+                </li>
+                <li>
+                    <a href="" class="p-3">Salir</a>
+                </li>
+            </ul>
+        </nav>
         @yield('content')
     </body>
 </html>
