@@ -30,7 +30,7 @@
                     <a href="" class="p-3">Iniciar sesión</a>
                 </li>
                 <li>
-                    <a href="" class="p-3">Registrar</a>
+                    <a href="{{ route('register') }}" class="p-3">Registrar</a>
                 </li>
                 <li>
                     <a href="" class="p-3">Salir</a>
