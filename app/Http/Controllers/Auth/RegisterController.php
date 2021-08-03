@@ -32,7 +32,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // sing in
+        auth()->attempt($request->only('email', 'password'));
 
         return redirect()->route('dashboard');
 
