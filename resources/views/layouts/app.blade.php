@@ -29,13 +29,16 @@
                         <a href="" class="p-3">Jesús Martínez</a>
                     </li>
                     <li>
-                        <a href="" class="p-3">Salir</a>
+                        <form action="{{ route('logout') }}" method="post" class="p-3 inline ">
+                            @csrf
+                            <button type="submit">Salir</button>
+                        </form>
                     </li>
                 @endauth
 
                 @guest
                     <li>
-                        <a href="" class="p-3">Iniciar sesión</a>
+                        <a href="{{ route('login') }}" class="p-3">Iniciar sesión</a>
                     </li>
                     <li>
                         <a href="{{ route('register') }}" class="p-3">Registrar</a>
