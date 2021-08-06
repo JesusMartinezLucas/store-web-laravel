@@ -18,7 +18,7 @@
                     <a href="{{ route('dashboard') }}" class="p-3">Panel</a>
                 </li>
                 <li>
-                    <a href="" class="p-3">Producto</a>
+                    <a href="{{ route('products') }}" class="p-3">Producto</a>
                 </li>
             </ul>
 
