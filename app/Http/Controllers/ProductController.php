@@ -13,6 +13,10 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        dd('ok');
+        $this->validate($request, [
+            'category' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+        ]);
     }
 }

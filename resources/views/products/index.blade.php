@@ -7,6 +7,19 @@
             @csrf
 
             <div class="mb-4">
+                <label for="category" class="sr-only">Categoría</label>
+                <input type="number" name="category" id="category" placeholder="Categoría"
+                class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('category')
+                border-red-500 @enderror" value="{{ old('category') }}">
+
+                @error('category')
+                    <div class="text-red-500 mt-2 text-sm">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-4">
                 <label for="price" class="sr-only">Precio</label>
                 <input type="number" step="0.01" name="price" id="price" placeholder="Precio"
                 class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('price')
