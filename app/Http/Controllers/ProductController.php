@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -18,5 +19,12 @@ class ProductController extends Controller
             'price' => 'required',
             'description' => 'required',
         ]);
+
+        Category::where('id', $request->category)
+            ->first()
+            ->products()
+            ->create($request->only('price', 'description'));
+
+        return back();
     }
 }
