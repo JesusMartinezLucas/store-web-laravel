@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex justify-center">
     <div class="w-8/12 bg-white p-6 rounded-lg">
-        <form action="{{ 'products' }}" method="post">
+        <form action="{{ 'products' }}" method="post" class="mb-4">
             @csrf
 
             <div class="mb-4">
@@ -51,6 +51,20 @@
             </div>
 
         </form>
+
+        @if ($products->count())
+            @foreach ($products as $product)
+                <div class="mb-4">
+                    <a href="" class="font-bold">{{ $product->category->name }}</a> <span
+                    class="text-gray-600 text-sm"> $ {{ $product->price }}</span>
+
+                    <p class="mb-2">{{ $product->description }}</p>
+                </div>
+            @endforeach
+        @else
+            <p>No hay productos</p>
+        @endif
+        
     </div>
 </div>
 @endsection
