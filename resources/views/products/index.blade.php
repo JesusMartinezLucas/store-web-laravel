@@ -61,6 +61,8 @@
                     <p class="mb-2">{{ $product->description }}</p>
                 </div>
             @endforeach
+
+            {{ $products->links() }}
         @else
             <p>No hay productos</p>
         @endif
