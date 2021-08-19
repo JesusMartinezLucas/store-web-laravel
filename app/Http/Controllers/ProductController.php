@@ -25,12 +25,13 @@ class ProductController extends Controller
             'category' => 'required',
             'price' => 'required',
             'description' => 'required',
+            'quantity' => 'required',
         ]);
 
         Category::where('id', $request->category)
             ->first()
             ->products()
-            ->create($request->only('price', 'description'));
+            ->create($request->only('price', 'description', 'quantity'));
 
         return back();
     }

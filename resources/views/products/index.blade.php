@@ -45,6 +45,19 @@
                 @enderror
             </div>
 
+            <div class="mb-4">
+                <label for="quantity" class="sr-only">Cantidad</label>
+                <input type="number" name="quantity" id="quantity" placeholder="Cantidad"
+                class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('quantity')
+                border-red-500 @enderror" value="{{ old('quantity') }}">
+
+                @error('quantity')
+                <div class="text-red-500 mt-2 text-sm">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
             <div>
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded
                 font-medium">Nuevo Producto</button>
@@ -58,7 +71,30 @@
                     <a href="" class="font-bold">{{ $product->category->name }}</a> <span
                     class="text-gray-600 text-sm"> $ {{ $product->price }}</span>
 
-                    <p class="mb-2">{{ $product->description }}</p>
+                    <p>{{ $product->description }}</p>
+
+                    <div class="flex items-center">
+                        @if ($product->inStock())
+                            <form action="{{ route('products.sales', $product) }}" method="post" class="mr-1">
+                                @csrf
+                                <button type="submit" class="text-blue-500">Vender</button>
+                            </form>
+                        @endif
+                        
+                        <span class="mr-1">{{ $product->sales->count() }} {{ Str::plural('vendido', 
+                        $product->sales->count()) }}</span>
+
+                        @if ($product->soldBy(auth()->user()))
+                            <form action="{{ route('products.sales', $product) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-blue-500">Devolver última venta</button>
+                            </form>
+                        @endif
+                    </div>
+
+                    
+
                 </div>
             @endforeach
 
