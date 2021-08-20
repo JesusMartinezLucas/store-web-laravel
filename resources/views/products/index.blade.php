@@ -74,23 +74,27 @@
                     <p>{{ $product->description }}</p>
 
                     <div class="flex items-center">
-                        @if ($product->inStock())
-                            <form action="{{ route('products.sales', $product) }}" method="post" class="mr-1">
-                                @csrf
-                                <button type="submit" class="text-blue-500">Vender</button>
-                            </form>
-                        @endif
+                        @auth
+                            @if ($product->inStock())
+                                <form action="{{ route('products.sales', $product) }}" method="post" class="mr-1">
+                                    @csrf
+                                    <button type="submit" class="text-blue-500">Vender</button>
+                                </form>
+                            @endif
+                        @endauth
                         
                         <span class="mr-1">{{ $product->sales->count() }} {{ Str::plural('vendido', 
                         $product->sales->count()) }}</span>
 
-                        @if ($product->soldBy(auth()->user()))
-                            <form action="{{ route('products.sales', $product) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-blue-500">Devolver última venta</button>
-                            </form>
-                        @endif
+                        @auth
+                            @if ($product->soldBy(auth()->user()))
+                                <form action="{{ route('products.sales', $product) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-blue-500">Devolver última venta</button>
+                                </form>
+                            @endif
+                        @endauth
                     </div>
 
                     
