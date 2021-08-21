@@ -94,14 +94,14 @@
                         <span class="mr-1">{{ $product->sales->count() }} {{ Str::plural('vendido', 
                         $product->sales->count()) }}</span>
 
-                        @auth
-                            @if ($product->soldBy(auth()->user()))
+                        @auth 
+                            @can('deleteLastSale', $product)
                                 <form action="{{ route('products.sales', $product) }}" method="post">
-                                    @csrf
+                                    @csrf 
                                     @method('DELETE')
                                     <button type="submit" class="text-blue-500">Devolver última venta</button>
                                 </form>
-                            @endif
+                            @endcan
                         @endauth
                     </div>
 

@@ -30,9 +30,7 @@ class ProductSaleController extends Controller
 
     public function destroy(Product $product, Request $request)
     {
-        if (!$product->soldBy($request->user())) {
-            return response(null, 409);
-        }
+        $this->authorize('deleteLastSale', $product);
 
         $request->user()->sales()->where('product_id', $product->id)->orderBy('id', 'desc')->first()->delete();
         $product->quantity += 1;

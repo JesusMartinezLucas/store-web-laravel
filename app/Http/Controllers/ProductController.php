@@ -10,13 +10,12 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category', 'sales')->paginate(20);
+        $products = Product::latest()->with('category', 'sales')->paginate(20);
 
         return view('products.index', [
             'products' => $products
         ]);
 
-        return view('products.index');
     }
 
     public function store(Request $request)
