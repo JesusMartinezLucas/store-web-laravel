@@ -24,6 +24,7 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::post('/products', [ProductController::class, 'store']);
+Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 Route::post('/products/{product}/sales', [ProductSaleController::class, 'store'])->name('products.sales');
 Route::delete('/products/{product}/sales', [ProductSaleController::class, 'destroy'])->name('products.sales');

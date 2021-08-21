@@ -73,6 +73,14 @@
 
                     <p>{{ $product->description }}</p>
 
+                    <div>
+                        <form action="{{ route('products.destroy', $product) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-blue-500">Eliminar</button>
+                        </form>
+                    </div>
+
                     <div class="flex items-center">
                         @auth
                             @if ($product->inStock())
@@ -96,8 +104,6 @@
                             @endif
                         @endauth
                     </div>
-
-                    
 
                 </div>
             @endforeach
