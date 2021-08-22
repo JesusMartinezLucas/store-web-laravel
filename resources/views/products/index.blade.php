@@ -68,7 +68,7 @@
         @if ($products->count())
             @foreach ($products as $product)
                 <div class="mb-4">
-                    <a href="" class="font-bold">{{ $product->category->name }}</a> <span
+                    <a href="{{ route('categories.products', $product->category) }}" class="font-bold">{{ $product->category->name }}</a> <span
                     class="text-gray-600 text-sm"> $ {{ $product->price }}</span>
 
                     <p>{{ $product->description }}</p>

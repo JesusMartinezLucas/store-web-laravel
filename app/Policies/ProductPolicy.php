@@ -12,6 +12,6 @@ class ProductPolicy
 
     public function deleteLastSale(User $user, Product $product)
     {
-        return $product->sales->count() > 0 && $user->id === $product->sales()->orderBy('id', 'desc')->first()->user_id;
+        return $product->sales->count() && $user->id === $product->sales()->orderBy('id', 'desc')->first()->user_id;
     }
 }

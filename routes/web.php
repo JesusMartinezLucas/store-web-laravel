@@ -7,12 +7,15 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CategoryProductController;
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/categories/{category:name}/products', [CategoryProductController::class, 'index'])->name('categories.products');
 
 Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
