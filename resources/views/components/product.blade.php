@@ -36,4 +36,6 @@
         @endauth
     </div>
 
+    <p>{{ $product->sales()->onlyTrashed()->count() }} ventas de este pruducto canceladas</p>
+
 </div>
