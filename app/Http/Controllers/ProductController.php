@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth'])->only(['store', 'destroy']);
+    }
+
     public function index()
     {
         $products = Product::latest()->with('category', 'sales')->paginate(20);
