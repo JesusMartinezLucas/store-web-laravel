@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductSaleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -29,7 +28,4 @@ Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::post('/products', [ProductController::class, 'store']);
 Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
-
-Route::post('/products/{product}/sales', [ProductSaleController::class, 'store'])->name('products.sales');
-Route::delete('/products/{product}/sales', [ProductSaleController::class, 'destroy'])->name('products.sales');
 

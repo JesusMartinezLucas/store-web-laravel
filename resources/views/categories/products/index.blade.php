@@ -5,8 +5,7 @@
     <div class="w-8/12 bg-white">
         <div class="p-6">
             <h1 class="text-2xl font-medium mb-1">{{ $category->name }}</h1>
-            <p>{{ $products->count() }} {{ Str::plural('producto', $products->count()) }} y
-            {{ $category->sales->count() }} ventas</p>
+            <p>{{ $products->count() }} {{ Str::plural('producto', $products->count()) }}</p>
         </div>
 
         <div class="bg-white p-6 rounded-lg">
