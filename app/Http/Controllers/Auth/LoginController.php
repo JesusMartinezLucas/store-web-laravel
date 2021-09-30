@@ -28,6 +28,6 @@ class LoginController extends Controller
             return back()->with('status', 'Datos de acceso no válidos');
         }
 
-        return redirect()->route('dashboard');
+        return redirect()->route('products');
     }
 }

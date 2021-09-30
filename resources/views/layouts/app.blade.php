@@ -15,9 +15,6 @@
                     <a href="/" class="p-3">Inicio</a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard') }}" class="p-3">Panel</a>
-                </li>
-                <li>
                     <a href="{{ route('products') }}" class="p-3">Productos</a>
                 </li>
             </ul>
