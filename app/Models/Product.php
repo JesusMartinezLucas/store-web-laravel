@@ -11,14 +11,8 @@ class Product extends Model
 
     protected $fillable = [
         'price',
-        'description',
-        'quantity'
+        'description'
     ];
-
-    public function inStock()
-    {
-        return $this->quantity > 0;
-    }
 
     public function category()
     {
