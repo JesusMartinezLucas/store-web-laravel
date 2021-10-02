@@ -12,12 +12,6 @@
         <nav class="p-6 bg-white flex justify-between mb-6">
             <ul class="flex items-center">
                 <li>
-                    <a href="/" class="p-3">Inicio</a>
-                </li>
-                <li>
-                    <a href="{{ route('dashboard') }}" class="p-3">Panel</a>
-                </li>
-                <li>
                     <a href="{{ route('products') }}" class="p-3">Productos</a>
                 </li>
             </ul>

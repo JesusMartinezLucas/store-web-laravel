@@ -47,19 +47,6 @@
                     @enderror
                 </div>
 
-                <div class="mb-4">
-                    <label for="quantity" class="sr-only">Cantidad</label>
-                    <input type="number" name="quantity" id="quantity" placeholder="Cantidad"
-                    class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('quantity')
-                    border-red-500 @enderror" value="{{ old('quantity') }}">
-
-                    @error('quantity')
-                    <div class="text-red-500 mt-2 text-sm">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
-
                 <div>
                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded
                     font-medium">Nuevo Producto</button>

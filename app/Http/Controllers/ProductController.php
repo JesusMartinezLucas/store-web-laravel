@@ -15,7 +15,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::latest()->with('category', 'sales')->paginate(20);
+        $products = Product::latest()->with('category')->paginate(20);
 
         return view('products.index', [
             'products' => $products
@@ -35,14 +35,13 @@ class ProductController extends Controller
         $this->validate($request, [
             'category' => 'required',
             'price' => 'required',
-            'description' => 'required',
-            'quantity' => 'required',
+            'description' => 'required'
         ]);
 
         Category::where('id', $request->category)
             ->first()
             ->products()
-            ->create($request->only('price', 'description', 'quantity'));
+            ->create($request->only('price', 'description'));
 
         return back();
     }
