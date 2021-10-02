@@ -32,7 +32,8 @@ class RegisterController extends Controller
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'is_root' => false,
+            'password' => Hash::make($request->password)
         ]);
 
         auth()->attempt($request->only('email', 'password'));
