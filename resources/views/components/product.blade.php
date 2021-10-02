@@ -4,12 +4,14 @@
 
     <p>{{ $product->description }}</p>
 
-    <div>
-        <form action="{{ route('products.destroy', $product) }}" method="post">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="text-blue-500">Eliminar</button>
-        </form>
-    </div>
+    @auth
+        <div>
+            <form action="{{ route('products.destroy', $product) }}" method="post">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="text-blue-500">Eliminar</button>
+            </form>
+        </div>
+    @endauth
 
 </div>
