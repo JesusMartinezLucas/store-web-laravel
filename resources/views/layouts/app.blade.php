@@ -14,7 +14,7 @@
                 <li>
                     <a href="{{ route('products.index') }}" class="p-3">Productos</a>
                     @auth
-                    @if (auth()->user()->is_root)
+                    @if (auth()->user()->is_admin)
                         <a href="{{ route('users.index') }}" class="p-3">Usuarios</a>
                     @endif
                     @endauth

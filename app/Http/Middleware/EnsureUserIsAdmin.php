@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
 
-class EnsureUserIsRoot
+class EnsureUserIsAdmin
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class EnsureUserIsRoot
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->user()->is_root) {
+        if (!$request->user()->is_admin) {
             return redirect(RouteServiceProvider::HOME);
         }
 

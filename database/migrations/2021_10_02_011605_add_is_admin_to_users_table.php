@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIsRootToUsersTable extends Migration
+class AddIsAdminToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddIsRootToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_root')->after('email');
+            $table->boolean('is_admin')->after('email');
         });
     }
 
@@ -26,7 +26,7 @@ class AddIsRootToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('is_root');
+            $table->dropColumn('is_admin');
         });
     }
 }
