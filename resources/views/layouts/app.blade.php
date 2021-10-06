@@ -39,9 +39,6 @@
                     <li>
                         <a href="{{ route('login') }}" class="p-3">Iniciar sesión</a>
                     </li>
-                    <li>
-                        <a href="{{ route('register') }}" class="p-3">Registrar</a>
-                    </li>
                 @endguest
             </ul>
         </nav>

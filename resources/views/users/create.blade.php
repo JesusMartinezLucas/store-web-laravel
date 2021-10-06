@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex justify-center">
     <div class="w-4/12 bg-white p-6 rounded-lg">
-        <form action="{{ route('register') }}" method="post">
+        <form action="{{ route('users.store') }}" method="post">
             @csrf
             <div class="mb-4">
                 <label for="name" class="sr-only">Nombre</label>
@@ -51,6 +51,19 @@
                 border-red-500 @enderror" value="">
 
                 @error('password_confirmation')
+                    <div class="text-red-500 mt-2 text-sm">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-4">
+                <input type="checkbox" name="is_admin" id="is_admin" value="{{ old('is_admin') }}">
+                <label class="text-gray-600 w-full p-4" for="is_admin">
+                    Es administrador
+                </label>
+
+                @error('is_admin')
                     <div class="text-red-500 mt-2 text-sm">
                         {{$message}}
                     </div>
