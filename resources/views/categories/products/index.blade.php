@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="flex justify-center">
-    <div class="w-8/12 bg-white">
+    <div class="w-8/12 m-6 bg-white">
         <div class="p-6">
             <h1 class="text-2xl font-medium mb-1">{{ $category->name }}</h1>
             <p>{{ $products->count() }} {{ Str::plural('producto', $products->count()) }}</p>

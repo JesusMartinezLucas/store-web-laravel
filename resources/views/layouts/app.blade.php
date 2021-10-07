@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
     </head>
     <body class="bg-gray-200">
-        <nav class="p-6 bg-white flex justify-between mb-6">
+        <nav class="p-6 bg-white flex justify-between">
             <ul class="flex items-center">
                 <li>
                     <a href="{{ route('products.index') }}" class="p-3">Productos</a>
