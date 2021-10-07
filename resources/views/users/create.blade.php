@@ -7,7 +7,7 @@
             @csrf
             <div class="mb-4">
                 <label for="name" class="sr-only">Nombre</label>
-                <input type="text" name="name" id="name" placeholder="Nombre"
+                <input type="text" name="name" id="name" placeholder="Nombre" required
                 class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('name')
                 border-red-500 @enderror" value="{{ old('name') }}">
 
@@ -20,7 +20,7 @@
 
             <div class="mb-4">
                 <label for="email" class="sr-only">Correo</label>
-                <input type="email" name="email" id="email" placeholder="Correo"
+                <input type="email" name="email" id="email" placeholder="Correo" required
                 class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('email')
                 border-red-500 @enderror" value="{{ old('email') }}">
 
@@ -33,7 +33,7 @@
 
             <div class="mb-4">
                 <label for="password" class="sr-only">Contraseña</label>
-                <input type="password" name="password" id="password" placeholder="Contraseña"
+                <input type="password" name="password" id="password" placeholder="Contraseña" required
                 class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('password')
                 border-red-500 @enderror" value="">
 
@@ -46,7 +46,7 @@
 
             <div class="mb-4">
                 <label for="password_confirmation" class="sr-only">Confirmación de contraseña</label>
-                <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirmación de contraseña"
+                <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirmación de contraseña" required
                 class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('password_confirmation')
                 border-red-500 @enderror" value="">
 
@@ -58,16 +58,10 @@
             </div>
 
             <div class="mb-4">
-                <input type="checkbox" name="is_admin" id="is_admin" value="{{ old('is_admin') }}">
-                <label class="text-gray-600 w-full p-4" for="is_admin">
-                    Es administrador
-                </label>
-
-                @error('is_admin')
-                    <div class="text-red-500 mt-2 text-sm">
-                        {{$message}}
-                    </div>
-                @enderror
+                <div class="flex items-center">
+                    <input type="checkbox" name="is_admin" id="is_admin" class="mr-2">
+                    <label for="is_admin">Es administrador</label>
+                </div>
             </div>
 
             <div>
