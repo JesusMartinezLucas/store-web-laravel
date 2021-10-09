@@ -1,23 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
-
-class RegisterController extends Controller
+class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['guest']);
+        $this->middleware(['auth', 'admin']);
     }
 
     public function index()
     {
-        return view('auth.register');
+        return view('users.index');
+    }
+
+    public function create()
+    {
+        return view('users.create');
     }
 
     public function store(Request $request)
@@ -25,20 +28,18 @@ class RegisterController extends Controller
         
         $this->validate($request, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|required|unique:users,email',
             'password' => 'required|confirmed',
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'is_root' => false,
+            'is_admin' => $request->has('is_admin'),
             'password' => Hash::make($request->password)
         ]);
 
-        auth()->attempt($request->only('email', 'password'));
-
-        return redirect()->route('products');
+        return redirect()->route('users.index');
 
     }
 }

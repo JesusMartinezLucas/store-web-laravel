@@ -9,14 +9,19 @@
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
     </head>
     <body class="bg-gray-200">
-        <nav class="p-6 bg-white flex justify-between mb-6">
-            <ul class="flex items-center">
+        <nav class="p-6 bg-white flex flex-wrap justify-between">
+            <ul class="flex flex-wrap items-center">
                 <li>
-                    <a href="{{ route('products') }}" class="p-3">Productos</a>
+                    <a href="{{ route('products.index') }}" class="p-3">Productos</a>
+                    @auth
+                    @if (auth()->user()->is_admin)
+                        <a href="{{ route('users.index') }}" class="p-3">Usuarios</a>
+                    @endif
+                    @endauth
                 </li>
             </ul>
 
-            <ul class="flex items-center">
+            <ul class="flex flex-wrap items-center">
 
                 @auth
                     <li>
@@ -33,9 +38,6 @@
                 @guest
                     <li>
                         <a href="{{ route('login') }}" class="p-3">Iniciar sesión</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('register') }}" class="p-3">Registrar</a>
                     </li>
                 @endguest
             </ul>
