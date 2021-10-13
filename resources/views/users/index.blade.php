@@ -6,9 +6,12 @@
         <div class="w-full md:w-8/12 bg-white m-6 p-6 rounded-lg">
             @foreach ($users as $user)
             <div class="mb-4">
-                <p>{{ $user->name }}</p>
+                <div class="flex justify-start items-center flex-wrap">
+                    <p class="mr-4">{{ $user->name }}</p>
+                    <p class="text-gray-600 text-sm">{{ $user->is_admin ? "Es administrador" : "" }}</p>
+                </div>
                 <div class="flex justify-between flex-wrap">
-                    <p class="mr-4">{{ $user->email }}</p>
+                    <p class="italic mr-4">{{ $user->email }}</p>
                     <div class="flex">
                         <a href="" class="text-blue-500 mr-6">Editar</a>
                         <form action="" method="post">
