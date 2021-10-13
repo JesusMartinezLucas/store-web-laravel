@@ -12,12 +12,12 @@
                 </div>
                 <div class="flex justify-between flex-wrap">
                     <p class="italic mr-4">{{ $user->email }}</p>
-                    <div class="flex">
-                        <a href="" class="text-blue-500 mr-6">Editar</a>
+                    <div class="flex items-baseline">
+                        <a href="" class="text-blue-500 text-sm mr-6">Editar</a>
                         <form action="" method="post">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="text-red-500">Eliminar</button>
+                            <button type="button" class="text-red-400 text-sm">Eliminar</button>
                             <!-- <button type="submit" class="text-red-500">Eliminar</button> -->
                         </form>
                     </div>
