@@ -4,7 +4,24 @@
     <div class="flex justify-center">
         
         <div class="w-full md:w-8/12 bg-white m-6 p-6 rounded-lg">
-            
+            @foreach ($users as $user)
+            <div class="mb-4">
+                <p>{{ $user->name }}</p>
+                <div class="flex justify-between flex-wrap">
+                    <p class="mr-4">{{ $user->email }}</p>
+                    <div class="flex">
+                        <a href="" class="text-blue-500 mr-4">Editar</a>
+                        <form action="" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="text-red-500">Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+
+            {{ $users->links() }}
         </div>
 
         <a class="fixed right-8 bottom-8 sm:right-16 sm:bottom-16 rounded-full bg-blue-500 p-2" href="{{ route('users.create') }}">
