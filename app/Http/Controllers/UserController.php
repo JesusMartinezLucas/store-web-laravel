@@ -17,9 +17,7 @@ class UserController extends Controller
     {
         $users = User::paginate(20);
 
-        return view('users.index', [
-            'users' => $users
-        ]);
+        return view('users.index', compact('users'));
 
     }
 
@@ -49,6 +47,9 @@ class UserController extends Controller
     }
 
     public function edit(User $user){
+        //TODO: Validar que el usuario se la sesión sea administrador o que sea el mismo que se va a actualizar
+        
         return $user;
+        // return view('users.edit', compact('user'));
     }
 }
