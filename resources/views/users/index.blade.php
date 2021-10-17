@@ -14,7 +14,7 @@
                     <p class="italic mr-4">{{ $user->email }}</p>
                     <div class="flex items-baseline">
                         <a href="{{route('users.edit', $user)}}" class="text-blue-500 text-sm mr-6">Editar</a>
-                        <form action="" method="post">
+                        <form action="" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="button" class="text-red-400 text-sm">Eliminar</button>
