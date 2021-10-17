@@ -76,8 +76,7 @@ class UserController extends Controller
         }
 
         $user->save();
-        // Devolver y mostrar mensaje de actualización correcta
-        return redirect()->route('users.index');
+        return back()->with('status', 'Se actualizó correctamente');
         
     }
 }

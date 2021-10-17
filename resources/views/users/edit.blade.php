@@ -3,6 +3,13 @@
 @section('content')
 <div class="flex justify-center">
     <div class="w-full md:w-4/12 bg-white m-6 p-6 rounded-lg">
+
+        @if (session('status'))
+            <div class="bg-green-500 p-4 rounded-lg mb-6 text-white text-center">
+                {{ session('status') }}
+            </div>
+        @endif
+
         <form action="{{ route('users.update', $user) }}" method="POST">
 
             @csrf
