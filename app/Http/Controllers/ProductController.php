@@ -17,17 +17,13 @@ class ProductController extends Controller
     {
         $products = Product::latest()->with('category')->paginate(20);
 
-        return view('products.index', [
-            'products' => $products
-        ]);
+        return view('products.index', compact('products'));
 
     }
 
     public function show(Product $product)
     {
-      return view('products.show', [
-          'product' => $product
-      ]);
+      return view('products.show', compact('product'));
     }
 
     public function store(Request $request)

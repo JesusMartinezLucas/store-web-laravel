@@ -6,7 +6,7 @@
 
     @auth
         <div>
-            <form action="{{ route('products.destroy', $product) }}" method="post">
+            <form action="{{ route('products.destroy', $product) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="text-blue-500">Eliminar</button>

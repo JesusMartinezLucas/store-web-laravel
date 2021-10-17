@@ -11,9 +11,6 @@ class CategoryProductController extends Controller
     {
         $products = $category->products()->with(['category'])->paginate(20);
 
-        return view('categories.products.index', [
-            'category' => $category,
-            'products' => $products,
-        ]);
+        return view('categories.products.index', compact(['category', 'products']));
     }
 }

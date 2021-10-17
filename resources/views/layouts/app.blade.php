@@ -9,7 +9,8 @@
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
     </head>
     <body class="bg-gray-200">
-        <nav class="p-6 bg-white flex flex-wrap justify-between">
+        <nav class="sticky top-0 bg-white border-b-2">
+            <div class="p-6 flex flex-wrap justify-between">
             <ul class="flex flex-wrap items-center">
                 <li>
                     <a href="{{ route('products.index') }}" class="p-3">Productos</a>
@@ -25,10 +26,10 @@
 
                 @auth
                     <li>
-                        <a href="" class="p-3">{{ auth()->user()->name }}</a>
+                        <a href="{{route('users.edit', auth()->user())}}" class="p-3">{{ auth()->user()->name }}</a>
                     </li>
                     <li>
-                        <form action="{{ route('logout') }}" method="post" class="p-3 inline ">
+                        <form action="{{ route('logout') }}" method="POST" class="p-3 inline ">
                             @csrf
                             <button type="submit">Salir</button>
                         </form>
@@ -41,6 +42,7 @@
                     </li>
                 @endguest
             </ul>
+            </div>
         </nav>
         @yield('content')
     </body>

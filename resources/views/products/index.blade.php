@@ -5,7 +5,7 @@
     <div class="w-8/12 bg-white m-6 p-6 rounded-lg">
 
         @auth
-            <form action="{{ 'products' }}" method="post" class="mb-4">
+            <form action="{{ 'products' }}" method="POST" class="mb-4">
                 @csrf
 
                 <div class="mb-4">
