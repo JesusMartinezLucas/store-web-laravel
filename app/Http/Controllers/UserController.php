@@ -11,7 +11,8 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'admin']);
+        $this->middleware('auth');
+        $this->middleware('admin')->except(['edit', 'update']);
     }
 
     public function index()
@@ -48,12 +49,14 @@ class UserController extends Controller
     }
 
     public function edit(User $user){
-        //TODO: Validar que el usuario se la sesión sea administrador o que sea el mismo que se va a actualizar
+        $this->authorize('update', $user);
         
         return view('users.edit', compact('user'));
     }
 
     public function update(Request $request, User $user){
+
+        $this->authorize('update', $user);
 
         $this->validate($request, [
             'name' => 'required|max:255',
