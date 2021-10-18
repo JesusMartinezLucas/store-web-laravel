@@ -82,4 +82,10 @@ class UserController extends Controller
         return back()->with('status', 'Se actualizó correctamente');
         
     }
+
+    public function destroy(User $user){
+        $user->delete();
+
+        return back();
+    }
 }
