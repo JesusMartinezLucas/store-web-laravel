@@ -1,5 +1,5 @@
 <div class="mb-4">
-    <a href="{{ route('categories.products', $product->category) }}" class="font-bold">{{ $product->category->name }}</a> <span
+    <span class="font-bold">{{ $product->category->name }}</span> <span
     class="text-gray-600 text-sm"> $ {{ $product->price }}</span>
 
     <p>{{ $product->description }}</p>
