@@ -19,6 +19,9 @@
                         <a href="{{ route('users.index') }}" class="p-3">Usuarios</a>
                     @endif
                     @endauth
+                    @auth
+                        <a href="{{ route('categories.index') }}" class="p-3">Categorías</a>
+                    @endauth
                 </li>
             </ul>
 
