@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -19,5 +20,18 @@ class CategoryController extends Controller
     public function create()
     {
         return view('categories.create');
+    }
+
+    public function store(Request $request)
+    {
+        
+        $this->validate($request, [
+            'name' => 'required|max:255',
+        ]);
+
+        Category::create($request->only('name'));
+
+        return redirect()->route('categories.index');
+
     }
 }
