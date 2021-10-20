@@ -70,7 +70,6 @@
             @if (auth()->user()->is_admin)
                 <div class="mb-4">
                     <div class="flex items-center">
-                        <!-- TODO Falla el old si es admin y se hace no admin PENDIENTE buscar solución-->
                         <input type="checkbox" name="is_admin" id="is_admin" class="mr-2"
                             {{ $user->is_admin || old('is_admin') == 'on' ? 'checked' : '' }}>
                         <label for="is_admin">Es administrador</label>
@@ -80,7 +79,7 @@
 
             <div>
                 <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded
-                font-medium w-full">Actualizar</button>
+                font-medium w-full">Actualizar usuario</button>
             </div>
         </form>
     </div>
