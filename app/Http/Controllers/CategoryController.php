@@ -26,7 +26,7 @@ class CategoryController extends Controller
     {
         
         $this->validate($request, [
-            'name' => 'required|max:255',
+            'name' => 'required|max:255|unique:categories,name',
         ]);
 
         Category::create($request->only('name'));
