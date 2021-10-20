@@ -4,7 +4,27 @@
     <div class="flex justify-center">
         
         <div class="w-full md:w-8/12 bg-white m-6 p-6 rounded-lg">
-            Categorías
+            @foreach ($categories as $category)
+            <div class="mb-4">
+                <div class="flex justify-between flex-wrap">
+                    <p class="mr-4">{{ $category->name }}</p>
+                    <form action="" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <!-- type="submit"  -->
+                        <button 
+                            type="button" 
+                            class="text-red-400" 
+                            onclick="return confirm('¿Estás seguro de eliminar la categoría?')"
+                        >
+                            Eliminar
+                        </button>
+                    </form>
+                </div>
+            </div>
+            @endforeach
+
+            {{ $categories->links() }}
         </div>
 
         <a class="fixed right-8 bottom-8 sm:right-16 sm:bottom-16 rounded-full bg-blue-500 p-2" href="{{ route('categories.create') }}">

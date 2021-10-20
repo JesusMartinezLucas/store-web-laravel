@@ -14,7 +14,8 @@ class CategoryController extends Controller
 
     public function index()
     {
-        return view('categories.index');
+        $categories = Category::latest()->paginate(20);
+        return view('categories.index', compact('categories'));
     }
 
     public function create()
