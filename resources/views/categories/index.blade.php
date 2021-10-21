@@ -8,18 +8,19 @@
             <div class="mb-4">
                 <div class="flex justify-between flex-wrap">
                     <p class="mr-4">{{ $category->name }}</p>
-                    <form action="" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <!-- type="submit"  -->
-                        <button 
-                            type="button" 
-                            class="text-red-400" 
-                            onclick="return confirm('¿Estás seguro de eliminar la categoría?')"
-                        >
-                            Eliminar
-                        </button>
-                    </form>
+                    @if (auth()->user()->is_admin)
+                        <form action="{{ route('categories.destroy', $category) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button 
+                                type="submit"
+                                class="text-red-400" 
+                                onclick="return confirm('¿Estás seguro de eliminar la categoría?')"
+                            >
+                                Eliminar
+                            </button>
+                        </form>
+                    @endif
                 </div>
             </div>
             @endforeach

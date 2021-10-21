@@ -10,6 +10,7 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware(['admin'])->only('destroy');
     }
 
     public function index()
@@ -34,5 +35,11 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index');
 
+    }
+
+    public function destroy(Category $category){
+        $category->delete();
+
+        return back();
     }
 }
