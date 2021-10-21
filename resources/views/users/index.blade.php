@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex justify-center">
         
-        <div class="w-full md:w-8/12 bg-white m-6 p-6 rounded-lg">
+        <div class="w-full md:w-8/12 lg:w-7/12 xl:w-6/12 2xl:w-5/12 bg-white m-6 p-6 rounded-lg">
             @foreach ($users as $user)
             <div class="mb-4">
                 <div class="flex justify-start items-center flex-wrap">
