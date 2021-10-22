@@ -28,7 +28,8 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('products.create');
+        $categories = Category::latest()->get();
+        return view('products.create', compact('categories'));
     } 
 
     public function store(Request $request)
