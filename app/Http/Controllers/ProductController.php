@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth'])->only(['store', 'destroy']);
+        $this->middleware(['auth'])->except(['index', 'show']);
     }
 
     public function index()
@@ -26,6 +26,11 @@ class ProductController extends Controller
       return view('products.show', compact('product'));
     }
 
+    public function create()
+    {
+        return view('products.create');
+    } 
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -39,7 +44,7 @@ class ProductController extends Controller
             ->products()
             ->create($request->only('price', 'description'));
 
-        return back();
+            return redirect()->route('products.index');
     }
 
     public function destroy(Product $product){
