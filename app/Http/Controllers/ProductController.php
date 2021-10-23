@@ -35,15 +35,16 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'category' => 'required',
-            'price' => 'required',
-            'description' => 'required'
+            'category' => 'required|exists:categories,id',
+            'price' => 'required|numeric|between:0,999.99',
+            'description' => 'required|max:1024',
+            'barcode' => 'max:255'
         ]);
 
         Category::where('id', $request->category)
             ->first()
             ->products()
-            ->create($request->only('price', 'description'));
+            ->create($request->only('price', 'description', 'barcode'));
 
             return redirect()->route('products.index');
     }

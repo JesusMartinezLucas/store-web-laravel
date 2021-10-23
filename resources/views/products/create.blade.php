@@ -31,10 +31,23 @@
             </div>
 
             <div class="mb-4">
+                <label for="barcode" class="sr-only">Código de barras</label>
+                <input type="text" name="barcode" id="barcode" placeholder="Código de barras"
+                class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('barcode')
+                border-red-500 @enderror" value="{{ old('barcode') }}">
+
+                @error('barcode')
+                    <div class="text-red-500 mt-2 text-sm">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-4">
                 <label for="description" class="sr-only">Descripción</label>
-                <textarea name="description" id="description" rows="2" class="bg-gray-100 block
+                <textarea name="description" id="description" rows="2" required class="bg-gray-100 block
                 border-2 w-full p-4 rounded-lg @error('description') border-red-500 @enderror"
-                placeholder="Descripción"></textarea>
+                placeholder="Descripción">{{ old('description') }}</textarea>
 
                 @error('description')
                 <div class="text-red-500 mt-2 text-sm">
@@ -45,7 +58,7 @@
 
             <div class="mb-4">
                 <label for="price" class="sr-only">Precio</label>
-                <input type="number" step="0.01" name="price" id="price" placeholder="Precio"
+                <input type="number" step="0.01" name="price" id="price" placeholder="Precio" required
                 class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('price')
                 border-red-500 @enderror" value="{{ old('price') }}">
 
