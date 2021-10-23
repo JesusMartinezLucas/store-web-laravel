@@ -38,7 +38,7 @@ class ProductController extends Controller
             'category' => 'required|exists:categories,id',
             'price' => 'required|numeric|between:0,999.99',
             'description' => 'required|max:1024',
-            'barcode' => 'max:255'
+            'barcode' => 'max:255|unique:products,barcode'
         ]);
 
         Category::where('id', $request->category)
