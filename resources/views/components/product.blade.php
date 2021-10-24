@@ -4,6 +4,12 @@
 
     <p>{{ $product->description }}</p>
 
+    @if ($product->barcode)
+        <p>{{ $product->barcode }}</p>
+    @endif
+
+    <img src="/storage/image/{{$product->image}}" alt="" class="w-1/5">
+
     @auth
         <div>
             <form action="{{ route('products.destroy', $product) }}" method="POST">

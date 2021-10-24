@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex justify-center">
     <div class="w-full md:w-5/12 bg-white m-6 p-6 rounded-lg">
-        <form action="{{ route('products.store') }}" method="POST" class="mb-4">
+        <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" class="mb-4">
             @csrf
             <div class="mb-4">
                 <label for="category" class="sr-only">Categoría</label>
@@ -63,6 +63,19 @@
                 border-red-500 @enderror" value="{{ old('price') }}">
 
                 @error('price')
+                    <div class="text-red-500 mt-2 text-sm">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-4">
+                <label for="image" class="sr-only">Imagen</label>
+                <input type="file" name="image" id="image" accept="image/*"
+                class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('image')
+                border-red-500 @enderror">
+
+                @error('image')
                     <div class="text-red-500 mt-2 text-sm">
                         {{$message}}
                     </div>
