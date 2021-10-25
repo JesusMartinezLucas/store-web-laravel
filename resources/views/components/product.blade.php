@@ -8,7 +8,7 @@
         <p>{{ $product->barcode }}</p>
     @endif
 
-    <img src="/storage/image/{{$product->image}}" alt="" class="w-1/5">
+    <img src="/storage/image/{{ !is_null($product->image) ? $product->image : 'noImage.jpeg' }}" alt="" class="w-1/5">
 
     @auth
         <div>
