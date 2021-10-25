@@ -1,6 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
+
+<script>
+    function previewImage() {
+        
+        const file = document.getElementById("image").files;
+        if (file.length > 0) {
+            const fileReader = new FileReader();
+            fileReader.onload = function (event) {
+                document.getElementById("preview").setAttribute("src", event.target.result);
+            }
+            fileReader.readAsDataURL(file[0]);
+        }
+        else {
+            document.getElementById("preview").setAttribute("src", "/storage/image/noImage.jpeg");
+        }
+    }
+</script>
+
 <div class="flex justify-center">
     <div class="w-full bg-white m-6 rounded-lg">
         <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
@@ -77,7 +95,7 @@
                         <label for="image" class="">Imagen del producto:</label>
                         <input type="file" name="image" id="image" accept="image/*"
                         class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('image')
-                        border-red-500 @enderror">
+                        border-red-500 @enderror" onchange="previewImage();">
 
                         @error('image')
                             <div class="text-red-500 mt-2 text-sm">
@@ -87,7 +105,7 @@
                     </div>
                     
                     <div class="flex flex-1 justify-center items-center">
-                        <img src="/storage/image/noImage.jpeg" alt="" class="w-64">
+                        <img src="/storage/image/noImage.jpeg" id="preview" alt="Imagen del producto" class="w-64">
                     </div>
                 </div>
             </div>
