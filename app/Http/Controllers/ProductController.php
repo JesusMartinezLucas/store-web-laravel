@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth'])->only(['store', 'destroy']);
+        $this->middleware(['auth'])->except(['index', 'show']);
     }
 
     public function index()
@@ -26,20 +26,45 @@ class ProductController extends Controller
       return view('products.show', compact('product'));
     }
 
+    public function create()
+    {
+        $categories = Category::latest()->get();
+        return view('products.create', compact('categories'));
+    } 
+
     public function store(Request $request)
     {
+
         $this->validate($request, [
-            'category' => 'required',
-            'price' => 'required',
-            'description' => 'required'
+            'category' => 'required|exists:categories,id',
+            'price' => 'required|numeric|between:0,999.99',
+            'description' => 'required|max:1024',
+            'barcode' => 'max:255|unique:products,barcode',
+            'image' => 'image|nullable|max:1999'
         ]);
 
-        Category::where('id', $request->category)
-            ->first()
-            ->products()
-            ->create($request->only('price', 'description'));
+        $fileNameToStore;
+        if ($request->hasFile('image')) {
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            $path = $request->file('image')->storeAs('public/image', $fileNameToStore);
+        }
+        else {
+            $fileNameToStore = NULL;
+        }
 
-        return back();
+        Category::find($request->category)
+            ->products()
+            ->create([
+                'price' => $request->price,
+                'description' => $request->description,
+                'barcode' => $request->barcode,
+                'image' => $fileNameToStore
+            ]);
+
+            return redirect()->route('products.index');
     }
 
     public function destroy(Product $product){
