@@ -1,23 +1,19 @@
-<div class="mb-4">
-    <span class="font-bold">{{ $product->category->name }}</span> <span
-    class="text-gray-600 text-sm"> $ {{ $product->price }}</span>
-
-    <p>{{ $product->description }}</p>
-
-    @if ($product->barcode)
-        <p>{{ $product->barcode }}</p>
-    @endif
-
-    <img src="/storage/image/{{ !is_null($product->image) ? $product->image : 'noImage.jpeg' }}" alt="" class="w-1/5">
-
-    @auth
-        <div>
-            <form action="{{ route('products.destroy', $product) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="text-blue-500">Eliminar</button>
-            </form>
+<div class="max-w-sm rounded overflow-hidden shadow-lg mb-6">
+    <img class="w-full" src="/storage/image/{{ !is_null($product->image) ? $product->image : 'noImage.jpeg' }}" alt="Imagen del producto">
+    <div class="p-4">
+        <div class="flex flex-wrap justify-start">
+            <p class="font-bold text-xl mr-4">{{ $product->description }}</p>
+            <p class="font-bold text-xl">${{ $product->price }}</p>
         </div>
-    @endauth
-
+        <div>
+            <span class="text-gray-700 font-bold text-base">Categoría: </span>
+            <span class="text-gray-700 text-base">{{ $product->category->name }} </span>
+        </div>
+        @if ($product->barcode)
+            <div>
+                <span class="text-gray-700 font-bold text-base">Código de barras: </span>
+                <span class="text-gray-700 text-base">{{ $product->barcode }} </span>
+            </div>
+        @endif
+    </div>
 </div>
