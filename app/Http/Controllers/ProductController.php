@@ -21,6 +21,23 @@ class ProductController extends Controller
 
     }
 
+    public function search(Request $request){
+
+        $this->validate($request, [
+            'search' => 'max:1024',
+        ]);
+
+        $search = $request->input('search');
+    
+        $products = Product::query()
+            ->where('description', 'LIKE', "%{$search}%")
+            ->orWhere('barcode', 'LIKE', "%{$search}%")
+            ->latest()
+            ->paginate(20);
+    
+        return view('products.index', compact('products', 'search'));
+    }
+
     public function show(Product $product)
     {
       return view('products.show', compact('product'));
