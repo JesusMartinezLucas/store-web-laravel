@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth'])->except(['index', 'show', 'search']);
+        $this->middleware(['auth'])->except(['index', 'search']);
     }
 
     public function index()
@@ -36,11 +36,6 @@ class ProductController extends Controller
             ->paginate(20);
     
         return view('products.index', compact('products', 'search'));
-    }
-
-    public function show(Product $product)
-    {
-      return view('products.show', compact('product'));
     }
 
     public function create()
