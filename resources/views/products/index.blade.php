@@ -32,9 +32,9 @@
     </div>
 
     @auth
-    <a class="fixed right-8 bottom-8 sm:right-16 sm:bottom-16 rounded-full bg-blue-500 p-2" href="{{ route('products.create') }}">
+    <x-links.create :route="route('products.create')">
         <x-icons.plus />
-    </a>
+    </x-links.create>
     @endauth
 </div>
 @endsection
