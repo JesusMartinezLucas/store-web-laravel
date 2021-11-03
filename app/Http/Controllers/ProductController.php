@@ -28,12 +28,13 @@ class ProductController extends Controller
         ]);
 
         $search = $request->input('search');
-    
+
         $products = Product::query()
             ->where('description', 'LIKE', "%{$search}%")
             ->orWhere('barcode', 'LIKE', "%{$search}%")
             ->latest()
-            ->paginate(20);
+            ->paginate(20)
+            ->withQueryString();
     
         return view('products.index', compact('products', 'search'));
     }
