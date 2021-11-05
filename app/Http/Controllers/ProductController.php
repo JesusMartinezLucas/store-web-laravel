@@ -33,6 +33,7 @@ class ProductController extends Controller
             ->where('description', 'LIKE', "%{$search}%")
             ->orWhere('barcode', 'LIKE', "%{$search}%")
             ->latest()
+            ->with('category')
             ->paginate(20)
             ->withQueryString();
     
