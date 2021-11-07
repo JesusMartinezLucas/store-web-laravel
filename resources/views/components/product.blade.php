@@ -7,7 +7,12 @@
         </div>
         <div>
             <span class="text-gray-700 font-bold text-base">Categoría: </span>
-            <span class="text-gray-700 text-base">{{ $product->category->name }} </span>
+            <a 
+                href="{{ route('categories.products.index', $product->category) }}" 
+                class="text-gray-700 text-base"
+            >
+                {{ $product->category->name }} 
+            </a>
         </div>
         @if ($product->barcode)
             <div>
