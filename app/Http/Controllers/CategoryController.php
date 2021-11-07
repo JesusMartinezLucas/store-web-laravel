@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['productsIndex', 'productsSearch']);
         $this->middleware(['admin'])->only('destroy');
     }
 
@@ -41,5 +41,33 @@ class CategoryController extends Controller
         $category->delete();
 
         return back();
+    }
+
+    public function productsIndex(Category $category)
+    {
+        $products = $category->products()->latest()->with('category')->paginate(20);
+
+        return view('categories.products.index', compact('category', 'products'));
+    }
+
+    public function productsSearch(Request $request, Category $category){
+
+        $this->validate($request, [
+            'search' => 'max:1024',
+        ]);
+
+        $search = $request->input('search');
+
+        $products = $category->products()
+            ->where(function($query) use ($search) {
+                $query->where('description', 'LIKE', "%{$search}%")
+                      ->orWhere('barcode', 'LIKE', "%{$search}%");
+            })
+            ->latest()
+            ->with('category')
+            ->paginate(20)
+            ->withQueryString();
+    
+        return view('categories.products.index', compact('category', 'products', 'search'));
     }
 }

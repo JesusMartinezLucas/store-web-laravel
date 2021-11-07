@@ -10,7 +10,7 @@
     </head>
     <body class="bg-gray-200">
         <nav class="sticky top-0 bg-white border-b-2">
-            <div class="p-6 flex flex-wrap justify-between">
+            <div class="px-6 py-2 flex flex-wrap justify-between">
             <ul class="flex flex-wrap items-center">
                 <li>
                     <a href="{{ route('products.index') }}" class="p-3">Productos</a>
@@ -26,6 +26,8 @@
             </ul>
 
             <ul class="flex flex-wrap items-center">
+
+                @yield('search')
 
                 @auth
                     <li>

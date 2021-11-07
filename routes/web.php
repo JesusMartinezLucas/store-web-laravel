@@ -24,10 +24,14 @@ Route::get('/categories', [CategoryController::class, 'index'])->name('categorie
 Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+Route::get('/categories/{category}/products', [CategoryController::class, 'productsIndex'])
+    ->name('categories.products.index');
+Route::get('/categories/{category}/products/search', [CategoryController::class, 'productsSearch'])
+    ->name('categories.products.search');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 

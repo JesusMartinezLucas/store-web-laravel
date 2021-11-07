@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth'])->except(['index', 'show']);
+        $this->middleware(['auth'])->except(['index', 'search']);
     }
 
     public function index()
@@ -21,9 +21,23 @@ class ProductController extends Controller
 
     }
 
-    public function show(Product $product)
-    {
-      return view('products.show', compact('product'));
+    public function search(Request $request){
+
+        $this->validate($request, [
+            'search' => 'max:1024',
+        ]);
+
+        $search = $request->input('search');
+
+        $products = Product::query()
+            ->where('description', 'LIKE', "%{$search}%")
+            ->orWhere('barcode', 'LIKE', "%{$search}%")
+            ->latest()
+            ->with('category')
+            ->paginate(20)
+            ->withQueryString();
+    
+        return view('products.index', compact('products', 'search'));
     }
 
     public function create()
