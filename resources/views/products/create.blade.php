@@ -2,22 +2,7 @@
 
 @section('content')
 
-<script>
-    function previewImage() {
-        
-        const file = document.getElementById("image").files;
-        if (file.length > 0) {
-            const fileReader = new FileReader();
-            fileReader.onload = function (event) {
-                document.getElementById("preview").setAttribute("src", event.target.result);
-            }
-            fileReader.readAsDataURL(file[0]);
-        }
-        else {
-            document.getElementById("preview").setAttribute("src", "/storage/image/noImage.jpeg");
-        }
-    }
-</script>
+<script src="{{ asset('js/image.js') }}"></script>
 
 <div class="flex justify-center">
     <div class="w-full bg-white m-6 rounded-lg">
