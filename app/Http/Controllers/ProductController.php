@@ -57,16 +57,13 @@ class ProductController extends Controller
             'image' => 'image|nullable|max:1999'
         ]);
 
-        $fileNameToStore;
+        $fileNameToStore = NULL;
         if ($request->hasFile('image')) {
             $filenameWithExt = $request->file('image')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('image')->getClientOriginalExtension();
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
             $path = $request->file('image')->storeAs('public/image', $fileNameToStore);
-        }
-        else {
-            $fileNameToStore = NULL;
         }
 
         Category::find($request->category)
