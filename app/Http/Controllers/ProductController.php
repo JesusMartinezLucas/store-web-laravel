@@ -53,7 +53,7 @@ class ProductController extends Controller
             'category' => 'required|exists:categories,id',
             'price' => 'required|numeric|between:0,999.99',
             'description' => 'required|max:1024',
-            'barcode' => 'max:255|unique:products,barcode',
+            'barcode' => 'max:255|nullable|unique:products,barcode',
             'image' => 'image|nullable|max:1999'
         ]);
 
