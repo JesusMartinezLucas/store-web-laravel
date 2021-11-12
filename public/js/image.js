@@ -1,5 +1,4 @@
-function previewImage() {
-        
+function previewImage(defaultImage) {
     const files = document.getElementById("image").files;
     if (files.length > 0) {
         const fileReader = new FileReader();
@@ -9,6 +8,6 @@ function previewImage() {
         fileReader.readAsDataURL(files[0]);
     }
     else {
-        document.getElementById("preview").setAttribute("src", "/storage/image/noImage.jpeg");
+        document.getElementById("preview").setAttribute("src", `/storage/image/${defaultImage || "noImage.jpeg"}`);
     }
 }
