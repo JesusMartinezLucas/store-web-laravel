@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -53,20 +55,17 @@ class ProductController extends Controller
             'category' => 'required|exists:categories,id',
             'price' => 'required|numeric|between:0,999.99',
             'description' => 'required|max:1024',
-            'barcode' => 'max:255|unique:products,barcode',
+            'barcode' => 'max:255|nullable|unique:products,barcode',
             'image' => 'image|nullable|max:1999'
         ]);
 
-        $fileNameToStore;
+        $fileNameToStore = NULL;
         if ($request->hasFile('image')) {
             $filenameWithExt = $request->file('image')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('image')->getClientOriginalExtension();
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-            $path = $request->file('image')->storeAs('public/image', $fileNameToStore);
-        }
-        else {
-            $fileNameToStore = NULL;
+            $request->file('image')->storeAs('public/image', $fileNameToStore);
         }
 
         Category::find($request->category)
@@ -79,6 +78,54 @@ class ProductController extends Controller
             ]);
 
             return redirect()->route('products.index');
+    }
+
+    public function edit(Product $product){
+
+        $categories = Category::latest()->get();
+        return view('products.edit', compact('product', 'categories'));
+
+    }
+
+    public function update(Request $request, Product $product){
+
+        $this->validate($request, [
+            'category' => 'required|exists:categories,id',
+            'price' => 'required|numeric|between:0,999.99',
+            'description' => 'required|max:1024',
+            'barcode' => [
+                'max:255', 'nullable',
+                Rule::unique('products', 'barcode')->ignore($product)
+            ],
+            'image' => 'image|nullable|max:1999'
+        ]);
+
+        $product->category_id = $request->category;
+        $product->price = $request->price;
+        $product->description = $request->description;
+        $product->barcode = $request->barcode;
+
+        if ($request->hasFile('image')) {
+            if (!is_null($product->image)) {
+                $filePathToDelete = public_path("/storage/image/$product->image");
+                
+                if (File::exists($filePathToDelete)) {
+                    File::delete($filePathToDelete);
+                }
+            }
+
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            $request->file('image')->storeAs('public/image', $fileNameToStore);
+
+            $product->image = $fileNameToStore;
+        }
+        
+        $product->save();
+        return back()->with('status', 'Se actualizó correctamente');
+
     }
 
     public function destroy(Product $product){
