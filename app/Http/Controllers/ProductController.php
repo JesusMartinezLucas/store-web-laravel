@@ -61,11 +61,7 @@ class ProductController extends Controller
 
         $fileNameToStore = NULL;
         if ($request->hasFile('image')) {
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-            $request->file('image')->storeAs('public/image', $fileNameToStore);
+            $fileNameToStore = self::storeImage($request->file('image'));
         }
 
         Category::find($request->category)
@@ -107,20 +103,10 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             if (!is_null($product->image)) {
-                $filePathToDelete = public_path("/storage/image/$product->image");
-                
-                if (File::exists($filePathToDelete)) {
-                    File::delete($filePathToDelete);
-                }
+                self::deleteImage($product->image);
             }
 
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-            $request->file('image')->storeAs('public/image', $fileNameToStore);
-
-            $product->image = $fileNameToStore;
+            $product->image = self::storeImage($request->file('image'));
         }
         
         $product->save();
@@ -128,9 +114,31 @@ class ProductController extends Controller
 
     }
 
+    private static function storeImage($image){
+        $filenameWithExt = $image->getClientOriginalName();
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        $extension = $image->getClientOriginalExtension();
+        $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+        $image->storeAs('public/image', $fileNameToStore);
+
+        return $fileNameToStore;
+    }
+
+    private static function deleteImage($image){
+        $filePathToDelete = public_path("/storage/image/$image");
+        
+        if (File::exists($filePathToDelete)) {
+            File::delete($filePathToDelete);
+        }
+    }
+
     public function destroy(Product $product){
+        if (!is_null($product->image)) {
+            self::deleteImage($product->image);
+        }
+
         $product->delete();
 
-        return back();
+        return redirect()->route('products.index');
     }
 }
