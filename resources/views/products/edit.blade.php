@@ -112,6 +112,18 @@
                 font-medium w-full md:w-1/4">Actualizar producto</button>
             </div>
         </form>
+
+        <form action="{{ route('products.destroy', $product) }}" method="POST" class="text-right" >
+            @csrf
+            @method('DELETE')
+            <button 
+                type="submit"
+                class="text-red-400 mr-6 mb-4" 
+                onclick="return confirm('¿Estás seguro de eliminar el producto?')"
+            >
+                Eliminar
+            </button>
+        </form>
     </div>
 </div>
 @endsection
