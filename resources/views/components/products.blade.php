@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <div class="w-full flex flex-wrap justify-center md:justify-between bg-white p-6 rounded-lg">
+    <div class="w-full flex flex-wrap justify-center md:justify-between bg-white py-6 px-4 rounded-lg">
 
         @if ($products->count())
             @foreach ($products as $product)
