@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/home/search', [HomeController::class, 'search'])->name('home.search');
 
 Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
