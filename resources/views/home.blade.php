@@ -16,17 +16,11 @@
                 <button type="button" class="bg-white">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
-                @foreach ($products as $product)
-                <p class="bg-white text-center">{{ $product->description }}</p>
-                <p class="bg-white text-center">${{ $product->price }}</p>
-                <input type="number" name="quantity" id="quantity" value="1" min="1" class="w-10 bg-white text-center">
-                <p class="bg-white text-center">${{ $product->price }}</p>
-                <button type="button" value="" class="bg-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-                @endforeach
+            </div>
+
+            <div class="bg-green-400 flex justify-between mt-4">
                 <h2 class="col-span-3 bg-white text-center font-semibold">Total</h2>
-                <p class="col-span-2 bg-white text-center font-bold">$400</p>
+                <p class="col-span-2 bg-white text-center font-bold">$0.00</p>
             </div>
 
         </div>
@@ -56,14 +50,21 @@
                         $('#productsContainer').append('\
                             <p class="bg-white text-center">'+ product.description +'</p>\
                             <p class="bg-white text-center">$'+ product.price +'</p>\
-                            <input type="number" name="quantity" id="quantity" value="1" min="1" class="w-10 bg-white text-center">\
+                            <input type="number" value="1" min="0" class="quantity w-10 bg-white text-center">\
                             <p class="bg-white text-center">$'+ product.price +'</p>\
-                            <button type="button" value="'+ product.price +'" class="bg-white">\
+                            <button type="button" value="'+ product.id +'" class="bg-white">\
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>\
                             </button>');
                     });
                 }
             });
+        });
+
+        $(document).on('change', '.quantity', function (e) {
+            e.preventDefault();
+            const quantity = $(this).val();
+            const price = $(this).prev().text().substring(1);
+            $(this).next().text(`$${(price  * quantity).toFixed(2)}`);
         });
 
     });
