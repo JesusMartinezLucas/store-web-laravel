@@ -53,7 +53,7 @@
                             <p class="bg-white text-center">'+ product.description +'</p>\
                             <p class="bg-white text-center">$'+ product.price +'</p>\
                             <input type="number" value="1" min="0" class="quantity w-10 bg-white text-center">\
-                            <p class="bg-white text-center">$'+ product.price +'</p>\
+                            <p class="amount bg-white text-center">$'+ product.price +'</p>\
                             <button type="button" value="'+ product.id +'" class="bg-white">\
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>\
                             </button>');
@@ -68,9 +68,18 @@
 
         $(document).on('change', '.quantity', function (e) {
             e.preventDefault();
+
             const quantity = $(this).val();
             const price = $(this).prev().text().substring(1);
-            $(this).next().text(`$${(price * quantity).toFixed(2)}`);
+
+            const oldAmount = $(this).next().text().substring(1);
+            const newAmount = price * quantity;
+
+            $(this).next().text(`$${newAmount.toFixed(2)}`);
+
+            const oldTotal = $('#total').text().substring(1);
+            const newTotal = +oldTotal + (newAmount - +oldAmount);
+            $('#total').text(`$${newTotal.toFixed(2)}`);
         });
 
     });
