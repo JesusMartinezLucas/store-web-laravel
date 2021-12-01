@@ -9,13 +9,7 @@
         
         <div class="bg-blue-400 m-6 p-6 rounded-lg">
             <div id="productsContainer" class="bg-green-400 grid total-products-container gap-2">
-                <h2 class="bg-white text-center font-semibold">Descripción</h2>
-                <h2 class="bg-white text-center font-semibold">Precio</h2>
-                <h2 class="bg-white text-center font-semibold">Cant.</h2>
-                <h2 class="bg-white text-center font-semibold">Importe</h2>
-                <button type="button" class="bg-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
+                
             </div>
 
             <div class="bg-green-400 flex justify-between mt-4">
@@ -33,6 +27,22 @@
 <script>
     $(document).ready(function () {
 
+        clearData();
+
+        function clearData()
+        {
+            $('#productsContainer').html(
+                '<h2 class="bg-white text-center font-semibold">Descripción</h2>\
+                <h2 class="bg-white text-center font-semibold">Precio</h2>\
+                <h2 class="bg-white text-center font-semibold">Cant.</h2>\
+                <h2 class="bg-white text-center font-semibold">Importe</h2>\
+                <button type="button" id="clearDataButton" class="bg-white">\
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>\
+                </button>');
+
+            $('#total').text('$0.00');
+        }
+
         $(document).on('submit', '#searchForm', function (e) {
             e.preventDefault();
 
@@ -46,19 +56,19 @@
                 data: data,
                 dataType: "json",
                 success: function (response) {
-                    let total = $('#total').text().substring(1);
+                    let total = Number($('#total').text().substring(1));
 
                     $.each(response.products, function (key, product) {
-                        $('#productsContainer').append('\
-                            <p class="bg-white text-center">'+ product.description +'</p>\
-                            <p class="bg-white text-center">$'+ product.price +'</p>\
+                        $('#productsContainer').append(`\
+                            <p class="bg-white text-center">${product.description}</p>\
+                            <p class="bg-white text-center">$${product.price}</p>\
                             <input type="number" value="1" min="0" class="quantity w-10 bg-white text-center">\
-                            <p class="amount bg-white text-center">$'+ product.price +'</p>\
-                            <button type="button" value="'+ product.id +'" class="bg-white">\
+                            <p class="amount bg-white text-center">$${product.price}</p>\
+                            <button type="button" value="${product.id}" class="bg-white">\
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>\
-                            </button>');
+                            </button>`);
 
-                        total = +total + +product.price;
+                        total = total + +product.price;
                     });
 
                     $('#total').text(`$${total.toFixed(2)}`);
@@ -80,6 +90,10 @@
             const oldTotal = $('#total').text().substring(1);
             const newTotal = +oldTotal + (newAmount - +oldAmount);
             $('#total').text(`$${newTotal.toFixed(2)}`);
+        });
+
+        $(document).on('click', '#clearDataButton', function (e) {
+            clearData();
         });
 
     });
