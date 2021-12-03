@@ -9,7 +9,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $products = Product::latest()->get();
         return view('home');
     }
 

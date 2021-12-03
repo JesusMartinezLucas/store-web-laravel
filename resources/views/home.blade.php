@@ -47,7 +47,7 @@
             e.preventDefault();
 
             const data = {
-                'search': $('#searchInput').val()
+                'search': $('#searchField').val()
             }
  
             $.ajax({
@@ -56,10 +56,18 @@
                 data: data,
                 dataType: "json",
                 success: function (response) {
-                    let total = Number($('#total').text().substring(1));
 
                     $.each(response.products, function (key, product) {
-                        $('#productsContainer').append(`\
+
+                        const quantityField = $(`input.${product.id}`);
+
+                        if(quantityField.length > 0)
+                        {
+                            quantityField.val(+quantityField.val() + 1).change();
+                        } 
+                        else
+                        {
+                            $('#productsContainer').append(`\
                             <p class="${product.id} bg-white text-center">${product.description}</p>\
                             <p class="${product.id} bg-white text-center">$${product.price}</p>\
                             <input type="number" value="1" min="0" class="${product.id} quantity w-10 bg-white text-center">\
@@ -68,10 +76,13 @@
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>\
                             </button>`);
 
-                        total = total + +product.price;
+                            let total = Number($('#total').text().substring(1));
+                            total = total + +product.price;
+                            $('#total').text(`$${total.toFixed(2)}`);
+                        }
+                        
                     });
-
-                    $('#total').text(`$${total.toFixed(2)}`);
+                    
                 }
             });
         });
