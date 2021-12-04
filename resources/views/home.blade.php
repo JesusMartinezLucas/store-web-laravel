@@ -28,6 +28,7 @@
     $(document).ready(function () {
 
         clearData();
+        $("#searchField").focus();
 
         function clearData()
         {
@@ -82,6 +83,8 @@
                         }
                         
                     });
+
+                    $("#searchField").val("");
                     
                 }
             });
