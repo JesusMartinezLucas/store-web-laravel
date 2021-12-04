@@ -5,16 +5,16 @@
 @endsection
 
 @section('content')
-    <div class="flex justify-center">
+    <div class="break-all sm:text-lg md:text-xl flex justify-center">
         
-        <div class="bg-blue-400 m-6 p-6 rounded-lg">
-            <div id="productsContainer" class="bg-green-400 grid total-products-container gap-2">
+        <div class="bg-white m-6 p-6 rounded-lg">
+            <div id="productsContainer" class="grid total-products-container gap-2">
                 
             </div>
 
-            <div class="bg-green-400 flex justify-between mt-4">
-                <h2 class="bg-white text-center font-semibold">Total</h2>
-                <p id="total" class="bg-white text-center font-bold">$0.00</p>
+            <div class="flex justify-between mt-4">
+                <h2 class="text-center font-semibold">Total</h2>
+                <p id="total" class="text-center font-bold">$0.00</p>
             </div>
 
         </div>
@@ -32,10 +32,10 @@
         function clearData()
         {
             $('#productsContainer').html(
-                '<h2 class="bg-white text-center font-semibold">Descripción</h2>\
-                <h2 class="bg-white text-center font-semibold">Precio</h2>\
-                <h2 class="bg-white text-center font-semibold">Cant.</h2>\
-                <h2 class="bg-white text-center font-semibold">Importe</h2>\
+                '<h2 class="text-center font-semibold">Descripción</h2>\
+                <h2 class="text-center font-semibold">Precio</h2>\
+                <h2 class="text-center font-semibold">Cant.</h2>\
+                <h2 class="text-center font-semibold">Importe</h2>\
                 <button type="button" id="clearDataButton" class="bg-white">\
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>\
                 </button>');
@@ -68,10 +68,10 @@
                         else
                         {
                             $('#productsContainer').append(`\
-                            <p class="${product.id} bg-white text-center">${product.description}</p>\
-                            <p class="${product.id} bg-white text-center">$${product.price}</p>\
-                            <input type="number" value="1" min="0" class="${product.id} quantity w-10 bg-white text-center">\
-                            <p class="${product.id} amount bg-white text-center">$${product.price}</p>\
+                            <p class="${product.id} text-center">${product.description}</p>\
+                            <p class="${product.id} text-center">$${product.price}</p>\
+                            <input type="number" value="1" min="0" class="${product.id} quantity w-10 text-center">\
+                            <p class="${product.id} amount text-center">$${product.price}</p>\
                             <button type="button" value="${product.id}" id="clearProductButton" class="${product.id} bg-white">\
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>\
                             </button>`);
