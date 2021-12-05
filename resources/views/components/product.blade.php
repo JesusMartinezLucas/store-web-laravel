@@ -1,5 +1,5 @@
 <div class="rounded overflow-hidden shadow-lg flex flex-col justify-between mb-6 mx-2">
-    <img class="w-full" src="/storage/image/{{ !is_null($product->image) ? $product->image : 'noImage.jpeg' }}" alt="Imagen del producto">
+    <img class="w-full max-h-96 object-contain" src="/storage/image/{{ !is_null($product->image) ? $product->image : 'noImage.jpeg' }}" alt="Imagen del producto">
     <div class="p-4">
         <div class="flex flex-wrap justify-start">
             <a 
