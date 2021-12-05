@@ -7,12 +7,14 @@
         <title>Store</title>
 
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
+        <link rel="stylesheet" href="{{asset('css/custom.css')}}">
     </head>
     <body class="bg-gray-200">
         <nav class="sticky top-0 bg-white border-b-2">
             <div class="px-6 py-2 flex flex-wrap justify-between">
             <ul class="flex flex-wrap items-center">
                 <li>
+                    <a href="{{ route('home.index') }}" class="p-3">Inicio</a>
                     <a href="{{ route('products.index') }}" class="p-3">Productos</a>
                     @auth
                     @if (auth()->user()->is_admin)
@@ -50,5 +52,10 @@
             </div>
         </nav>
         @yield('content')
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+        @yield('scripts')
+
     </body>
 </html>
