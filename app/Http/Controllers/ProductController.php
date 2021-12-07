@@ -56,7 +56,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|between:0,999.99',
             'description' => 'required|max:1024',
             'barcode' => 'max:255|nullable|unique:products,barcode',
-            'image' => 'image|nullable|max:1999'
+            'image' => 'image|nullable|max:9999'
         ]);
 
         $fileNameToStore = NULL;
@@ -93,7 +93,7 @@ class ProductController extends Controller
                 'max:255', 'nullable',
                 Rule::unique('products', 'barcode')->ignore($product)
             ],
-            'image' => 'image|nullable|max:1999'
+            'image' => 'image|nullable|max:9999'
         ]);
 
         $product->category_id = $request->category;
