@@ -117,14 +117,19 @@
     video: true,
   };
 
-  captureButton.addEventListener('click', () => {
-    // Draw the video frame to the canvas.
-    context.drawImage(player, 0, 0, canvas.width, canvas.height);
+    captureButton.addEventListener('click', () => {
+        // Draw the video frame to the canvas.
+        context.drawImage(player, 0, 0, canvas.width, canvas.height);
 
-    console.log("player ", player);
-    console.log("canvas ", canvas);
-    console.log("context ", context);
-  });
+        console.log("player ", player);
+
+        canvas.toBlob(function(blob) {
+
+            const file = new File([blob], "filename");
+            console.log("file ", file);
+
+        });
+    });
 
   // Attach the video stream to the video element and autoplay.
   navigator.mediaDevices.getUserMedia(constraints)
