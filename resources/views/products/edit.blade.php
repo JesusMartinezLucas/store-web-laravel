@@ -150,7 +150,7 @@
 
         canvas.toBlob(function(blob) {
 
-            const file = new File([blob], "filename");
+            const file = new File([blob], "photo.jpeg", { type: "image/jpeg", });
             console.log("file ", file);
 
         });
