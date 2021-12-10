@@ -2,8 +2,6 @@
 
 @section('content')
 
-<script src="{{ asset('js/image.js') }}"></script>
-
 <div class="flex justify-center">
     <div class="w-full bg-white m-6 rounded-lg">
 
@@ -124,6 +122,44 @@
                 Eliminar
             </button>
         </form>
+
+        <video id="player" controls autoplay></video>
+        <button id="capture">Capture</button>
+        <canvas id="canvas" width=320 height=240></canvas>
+
     </div>
 </div>
+@endsection
+
+@section('scripts')
+
+<script src="{{ asset('js/image.js') }}"></script>
+
+<script>
+  const player = document.getElementById('player');
+  const canvas = document.getElementById('canvas');
+  const context = canvas.getContext('2d');
+  const captureButton = document.getElementById('capture');
+
+  const constraints = {
+    video: true,
+  };
+
+    captureButton.addEventListener('click', () => {
+        context.drawImage(player, 0, 0, canvas.width, canvas.height);
+
+        canvas.toBlob(function(blob) {
+
+            const file = new File([blob], "filename");
+            console.log("file ", file);
+
+        });
+    });
+
+  navigator.mediaDevices.getUserMedia(constraints)
+    .then((stream) => {
+      player.srcObject = stream;
+    });
+</script>
+
 @endsection

@@ -2,8 +2,6 @@
 
 @section('content')
 
-<script src="{{ asset('js/image.js') }}"></script>
-
 <div class="flex justify-center">
     <div class="w-full bg-white m-6 rounded-lg">
         <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
@@ -99,43 +97,13 @@
                 font-medium w-full md:w-1/4">Guardar producto</button>
             </div>
         </form>
-
-        <video id="player" controls autoplay></video>
-        <button id="capture">Capture</button>
-        <canvas id="canvas" width=320 height=240></canvas>
-
     </div>
 </div>
 
-<script>
-  const player = document.getElementById('player');
-  const canvas = document.getElementById('canvas');
-  const context = canvas.getContext('2d');
-  const captureButton = document.getElementById('capture');
+@endsection
 
-  const constraints = {
-    video: true,
-  };
+@section('scripts')
 
-    captureButton.addEventListener('click', () => {
-        // Draw the video frame to the canvas.
-        context.drawImage(player, 0, 0, canvas.width, canvas.height);
-
-        console.log("player ", player);
-
-        canvas.toBlob(function(blob) {
-
-            const file = new File([blob], "filename");
-            console.log("file ", file);
-
-        });
-    });
-
-  // Attach the video stream to the video element and autoplay.
-  navigator.mediaDevices.getUserMedia(constraints)
-    .then((stream) => {
-      player.srcObject = stream;
-    });
-</script>
+<script src="{{ asset('js/image.js') }}"></script>
 
 @endsection
