@@ -127,6 +127,11 @@
         <button id="capture">Capture</button>
         <canvas id="canvas" width=320 height=240></canvas>
 
+        <div id="updateImageErrors" class="text-red-500 mt-2 text-sm">  </div>
+
+        <button type="button" id="updateImageButton" class="hidden bg-blue-500 text-white px-4 py-2 rounded
+            font-medium w-full md:w-1/4">Actualizar imagen</button>
+
     </div>
 </div>
 @endsection
@@ -147,18 +152,48 @@
 
     captureButton.addEventListener('click', () => {
         context.drawImage(player, 0, 0, canvas.width, canvas.height);
-
-        canvas.toBlob(function(blob) {
-
-            const file = new File([blob], "photo.jpeg", { type: "image/jpeg", });
-            console.log("file ", file);
-
-        });
+        $('#updateImageButton').removeClass("hidden");
     });
 
   navigator.mediaDevices.getUserMedia(constraints)
     .then((stream) => {
       player.srcObject = stream;
+    });
+
+
+    $(document).on('click', '#updateImageButton', function (e) {
+        e.preventDefault();
+        $('#updateImageErrors').html("");
+
+        canvas.toBlob(function(blob) {
+            var formData = new FormData();
+            const image = new File([blob], "image.jpeg", { type: "image/jpeg", });
+            formData.append('image', image);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('products.image.update', $product) }}",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.status === 400) {
+                        $('#updateImageErrors').html("");
+                        $.each(response.errors, function (key, error) {
+                            $('#updateImageErrors').append(`${error} `);
+                        });
+                    } else {
+                        location.reload();
+                    }
+                }
+            });
+        });
     });
 </script>
 
