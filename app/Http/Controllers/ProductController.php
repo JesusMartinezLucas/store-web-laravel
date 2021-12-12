@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -110,8 +111,37 @@ class ProductController extends Controller
         }
         
         $product->save();
-        return back()->with('status', 'Se actualizó correctamente');
+        return back()->with('status', 'El producto actualizó correctamente');
 
+    }
+
+    public function imageUpdate(Request $request, Product $product){
+
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|max:9999'
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages()
+            ]);
+        }
+
+        if ($request->hasFile('image')) {
+            if (!is_null($product->image)) {
+                self::deleteImage($product->image);
+            }
+
+            $product->image = self::storeImage($request->file('image'));
+        }
+
+        $product->save();
+        $request->session()->flash('status', 'La imagen se actualizó correctamente');
+
+        return response()->json([
+            'status' => 200,
+        ]);
     }
 
     private static function storeImage($image){
