@@ -85,7 +85,7 @@
 
                 <div class="flex flex-col w-full md:w-1/2 p-6 pt-0 md:pt-6 md:pl-3">
                     <div class="mb-4">
-                        <label for="image" class="">Imagen del producto:</label>
+                        <label for="image">Imagen del producto:</label>
                         <input type="file" name="image" id="image" accept="image/*"
                         class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('image')
                         border-red-500 @enderror" onchange="previewImage( '{{ $product->image }}' );">
@@ -123,15 +123,23 @@
             </button>
         </form>
 
-        <video id="player" controls autoplay></video>
-        <button id="capture">Capture</button>
-        <canvas id="canvas" width=320 height=240></canvas>
+        <h2 class="text-center">Actualizar imagen</h2>
 
-        <div id="updateImageErrors" class="text-red-500 mt-2 text-sm">  </div>
-
-        <button type="button" id="updateImageButton" class="hidden bg-blue-500 text-white px-4 py-2 rounded
-            font-medium w-full md:w-1/4">Actualizar imagen</button>
-
+        <div class="flex flex-wrap">
+            <div class="w-full md:w-1/2 p-6 pb-0 md:pb-6 md:pr-3 mb-4 md:mb-0">
+                <video id="player" controls autoplay class="mb-4"></video>
+                <button id="capture" class="bg-blue-500 text-white px-4 py-2 rounded
+                    font-medium w-full">Capturar</button>
+            </div>
+            <div class="flex flex-col w-full md:w-1/2 p-6 pt-0 md:pt-6 md:pl-3">
+                <div class="flex flex-1 justify-center items-center mb-4">
+                    <canvas id="canvas" width=320 height=240></canvas>
+                    <div id="updateImageErrors" class="text-red-500 mt-2 text-sm">  </div>
+                </div>
+                <button type="button" id="updateImageButton" class="hidden bg-blue-500 text-white px-4 py-2 rounded
+                    font-medium w-full">Actualizar imagen</button>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
