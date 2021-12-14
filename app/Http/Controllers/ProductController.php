@@ -65,7 +65,7 @@ class ProductController extends Controller
             $fileNameToStore = self::storeImage($request->file('image'));
         }
 
-        Category::find($request->category)
+        $product = Category::find($request->category)
             ->products()
             ->create([
                 'price' => $request->price,
@@ -74,7 +74,7 @@ class ProductController extends Controller
                 'image' => $fileNameToStore
             ]);
 
-            return redirect()->route('products.index');
+        return redirect()->route('products.edit', $product)->with('status', 'El producto se guardó correctamente');
     }
 
     public function edit(Product $product){
@@ -111,7 +111,7 @@ class ProductController extends Controller
         }
         
         $product->save();
-        return back()->with('status', 'El producto actualizó correctamente');
+        return back()->with('status', 'El producto se actualizó correctamente');
 
     }
 

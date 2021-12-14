@@ -141,6 +141,11 @@
             </div>
         </div>
     </div>
+
+    <x-links.create :route="route('products.create')">
+        <x-icons.plus />
+    </x-links.create>
+
 </div>
 @endsection
 
@@ -174,7 +179,7 @@
         $('#updateImageErrors').html("");
 
         canvas.toBlob(function(blob) {
-            var formData = new FormData();
+            const formData = new FormData();
             const image = new File([blob], "image.jpeg", { type: "image/jpeg", });
             formData.append('image', image);
 
