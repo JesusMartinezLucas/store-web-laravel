@@ -104,16 +104,20 @@
             const oldTotal = $('#total').text().substring(1);
             const newTotal = +oldTotal + (newAmount - +oldAmount);
             $('#total').text(`$${newTotal.toFixed(2)}`);
+            
+            $("#searchField").focus();
         });
 
         $(document).on('click', '#clearDataButton', function (e) {
             clearData();
+            $("#searchField").focus();
         });
 
         $(document).on('click', '#clearProductButton', function (e) {
             productId = $(this).val();
             $(`input.${productId}`).val(0).change();
             $(`.${productId}`).remove(); 
+            $("#searchField").focus();
         });
     });
 </script>
