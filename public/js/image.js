@@ -1,14 +1,14 @@
-function previewImage(defaultImage) {
-    const files = document.getElementById("image").files;
+function getImageSrc(files, defaultImage) {
     if (files.length > 0) {
 
         const fileReader = new FileReader();
         fileReader.onload = function (event) {
-            document.getElementById("preview").setAttribute("src", event.target.result);
+            console.log("event.target.result ", event.target.result);
+            return event.target.result;
         }
         fileReader.readAsDataURL(files[0]);
     }
     else {
-        document.getElementById("preview").setAttribute("src", `/storage/image/${defaultImage || "noImage.jpeg"}`);
+        return `/storage/image/${defaultImage || "noImage.jpeg"}`;
     }
 }

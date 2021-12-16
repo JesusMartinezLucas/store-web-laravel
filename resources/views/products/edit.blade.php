@@ -88,7 +88,7 @@
                         <label for="image">Imagen del producto:</label>
                         <input type="file" name="image" id="image" capture="user" accept="image/*"
                         class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('image')
-                        border-red-500 @enderror" onchange="previewImage( '{{ $product->image }}' );">
+                        border-red-500 @enderror">
 
                         @error('image')
                             <div class="text-red-500 mt-2 text-sm">
@@ -152,6 +152,23 @@
 @section('scripts')
 
 <script src="{{ asset('js/image.js') }}"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $(document).on('change', '#image', function (e) {
+            e.preventDefault();
+
+            const files = $(this).prop('files');
+            const src = getImageSrc(files, "{{ $product->image }}");
+
+            console.log("src ", src);
+
+            $('#preview').attr("src", src);
+        });
+
+    });
+</script>
 
 <script>
   const player = document.getElementById('player');
