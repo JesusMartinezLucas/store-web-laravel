@@ -53,7 +53,7 @@
  
             $.ajax({
                 type: "GET",
-                url: "/home/search",
+                url: "{{ route('home.search') }}",
                 data: data,
                 dataType: "json",
                 success: function (response) {
