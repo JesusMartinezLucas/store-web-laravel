@@ -1,14 +1,13 @@
-function getImageSrc(files, defaultImage) {
+function setImageSrc(files, defaultImage, setImagePreview) {
     if (files.length > 0) {
 
         const fileReader = new FileReader();
         fileReader.onload = function (event) {
-            console.log("event.target.result ", event.target.result);
-            return event.target.result;
+            setImagePreview(event.target.result);
         }
         fileReader.readAsDataURL(files[0]);
     }
     else {
-        return `/storage/image/${defaultImage || "noImage.jpeg"}`;
+        setImagePreview(`/storage/image/${defaultImage || "noImage.jpeg"}`);
     }
 }

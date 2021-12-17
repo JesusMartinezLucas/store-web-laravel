@@ -160,12 +160,12 @@
             e.preventDefault();
 
             const files = $(this).prop('files');
-            const src = getImageSrc(files, "{{ $product->image }}");
-
-            console.log("src ", src);
-
-            $('#preview').attr("src", src);
+            setImageSrc(files, "{{ $product->image }}", setImagePreview);
         });
+
+        function setImagePreview(src) {
+            $('#preview').attr("src", src);
+        }
 
     });
 </script>

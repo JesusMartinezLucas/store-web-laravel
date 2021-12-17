@@ -113,9 +113,12 @@
             e.preventDefault();
 
             const files = $(this).prop('files');
-            const src = getImageSrc(files, null);
-            $("#preview").attr("src", src);
+            setImageSrc(files, null, setImagePreview);
         });
+
+        function setImagePreview(src) {
+            $('#preview').attr("src", src);
+        }
 
     });
 </script>
