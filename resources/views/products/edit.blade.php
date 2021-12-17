@@ -128,7 +128,8 @@
         <div class="flex flex-wrap">
             <div class="w-full md:w-1/2 p-6 pb-0 md:pb-6 md:pr-3 mb-4 md:mb-0">
                 <video id="player" controls autoplay class="mb-4"></video>
-                <button id="captureButton" class="bg-blue-500 text-white px-4 py-2 rounded
+                <div id="playerErrors" class="text-red-500 mt-2 text-sm">  </div>
+                <button id="captureButton" class="hidden bg-blue-500 text-white px-4 py-2 rounded
                     font-medium w-full">Capturar</button>
             </div>
             <div class="flex flex-col w-full md:w-1/2 p-6 pt-0 md:pt-6 md:pl-3">
@@ -186,6 +187,9 @@ $(document).ready(function () {
     navigator.mediaDevices.getUserMedia(constraints)
         .then((stream) => {
             player.srcObject = stream;
+            $('#captureButton').removeClass("hidden");
+        }).catch(function() {
+            $('#playerErrors').html("Sin camara o sin permisos para usar la cámara");
         });
 
     $(document).on('click', '#captureButton', function (e) {
