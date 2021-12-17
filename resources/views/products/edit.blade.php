@@ -128,7 +128,7 @@
         <div class="flex flex-wrap">
             <div class="w-full md:w-1/2 p-6 pb-0 md:pb-6 md:pr-3 mb-4 md:mb-0">
                 <video id="player" controls autoplay class="mb-4"></video>
-                <button id="capture" class="bg-blue-500 text-white px-4 py-2 rounded
+                <button id="captureButton" class="bg-blue-500 text-white px-4 py-2 rounded
                     font-medium w-full">Capturar</button>
             </div>
             <div class="flex flex-col w-full md:w-1/2 p-6 pt-0 md:pt-6 md:pl-3">
@@ -154,42 +154,46 @@
 <script src="{{ asset('js/image.js') }}"></script>
 
 <script>
-    $(document).ready(function () {
+$(document).ready(function () {
 
-        $(document).on('change', '#image', function (e) {
-            e.preventDefault();
+    $(document).on('change', '#image', function (e) {
+        e.preventDefault();
 
-            const files = $(this).prop('files');
-            setImageSrc(files, "{{ $product->image }}", setImagePreview);
-        });
-
-        function setImagePreview(src) {
-            $('#preview').attr("src", src);
-        }
-
+        const files = $(this).prop('files');
+        setImageSrc(files, "{{ $product->image }}", setImagePreview);
     });
+
+    function setImagePreview(src) {
+        $('#preview').attr("src", src);
+    }
+
+});
 </script>
 
 <script>
-  const player = document.getElementById('player');
-  const canvas = document.getElementById('canvas');
-  const context = canvas.getContext('2d');
-  const captureButton = document.getElementById('capture');
+$(document).ready(function () {
 
-  const constraints = {
-    video: true,
-  };
+    $(window).scrollTop(0);
 
-    captureButton.addEventListener('click', () => {
+    const player = $('#player').get(0);
+    const canvas = $('#canvas').get(0);
+    const context = canvas.getContext('2d');
+
+    const constraints = {
+        video: true,
+    };
+
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then((stream) => {
+            player.srcObject = stream;
+        });
+
+    $(document).on('click', '#captureButton', function (e) {
+        e.preventDefault();
+        
         context.drawImage(player, 0, 0, canvas.width, canvas.height);
         $('#updateImageButton').removeClass("hidden");
     });
-
-  navigator.mediaDevices.getUserMedia(constraints)
-    .then((stream) => {
-      player.srcObject = stream;
-    });
-
 
     $(document).on('click', '#updateImageButton', function (e) {
         e.preventDefault();
@@ -225,6 +229,8 @@
             });
         });
     });
+
+});
 </script>
 
 @endsection
