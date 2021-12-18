@@ -207,6 +207,7 @@ $(document).ready(function () {
             const formData = new FormData();
             const image = new File([blob], "image.jpeg", { type: "image/jpeg", });
             formData.append('image', image);
+            formData.append('_method', 'PUT');
 
             $.ajaxSetup({
                 headers: {
