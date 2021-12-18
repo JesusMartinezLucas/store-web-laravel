@@ -86,7 +86,7 @@
                 <div class="flex flex-col w-full md:w-1/2 p-6 pt-0 md:pt-6 md:pl-3">
                     <div class="mb-4">
                         <label for="image">Imagen del producto:</label>
-                        <input type="file" name="image" id="image" capture="user" accept="image/*"
+                        <input type="file" name="image" id="image" accept="image/*"
                         class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('image')
                         border-red-500 @enderror">
 
