@@ -189,7 +189,7 @@ $(document).ready(function () {
             player.srcObject = stream;
             $('#captureButton').removeClass("hidden");
         }).catch(function() {
-            $('#playerErrors').html("Sin camara o sin permisos para usar la cámara");
+            $('#playerErrors').html("Sin cámara o sin permisos para usar la cámara");
         });
 
     $(document).on('click', '#captureButton', function (e) {
