@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -56,7 +57,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|between:0,999.99',
             'description' => 'required|max:1024',
             'barcode' => 'max:255|nullable|unique:products,barcode',
-            'image' => 'image|nullable|max:1999'
+            'image' => 'image|nullable|max:9999'
         ]);
 
         $fileNameToStore = NULL;
@@ -64,7 +65,7 @@ class ProductController extends Controller
             $fileNameToStore = self::storeImage($request->file('image'));
         }
 
-        Category::find($request->category)
+        $product = Category::find($request->category)
             ->products()
             ->create([
                 'price' => $request->price,
@@ -73,7 +74,7 @@ class ProductController extends Controller
                 'image' => $fileNameToStore
             ]);
 
-            return redirect()->route('products.index');
+        return redirect()->route('products.edit', $product)->with('status', 'El producto se guardó correctamente');
     }
 
     public function edit(Product $product){
@@ -93,7 +94,7 @@ class ProductController extends Controller
                 'max:255', 'nullable',
                 Rule::unique('products', 'barcode')->ignore($product)
             ],
-            'image' => 'image|nullable|max:1999'
+            'image' => 'image|nullable|max:9999'
         ]);
 
         $product->category_id = $request->category;
@@ -110,8 +111,37 @@ class ProductController extends Controller
         }
         
         $product->save();
-        return back()->with('status', 'Se actualizó correctamente');
+        return back()->with('status', 'El producto se actualizó correctamente');
 
+    }
+
+    public function imageUpdate(Request $request, Product $product){
+
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|max:9999'
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages()
+            ]);
+        }
+
+        if ($request->hasFile('image')) {
+            if (!is_null($product->image)) {
+                self::deleteImage($product->image);
+            }
+
+            $product->image = self::storeImage($request->file('image'));
+        }
+
+        $product->save();
+        $request->session()->flash('status', 'La imagen se actualizó correctamente');
+
+        return response()->json([
+            'status' => 200,
+        ]);
     }
 
     private static function storeImage($image){

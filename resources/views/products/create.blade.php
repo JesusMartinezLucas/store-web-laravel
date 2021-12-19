@@ -2,8 +2,6 @@
 
 @section('content')
 
-<script src="{{ asset('js/image.js') }}"></script>
-
 <div class="flex justify-center">
     <div class="w-full bg-white m-6 rounded-lg">
         <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
@@ -78,9 +76,9 @@
                 <div class="flex flex-col w-full md:w-1/2 p-6 pt-0 md:pt-6 md:pl-3">
                     <div class="mb-4">
                         <label for="image" class="">Imagen del producto:</label>
-                        <input type="file" name="image" id="image" accept="image/*"
+                        <input type="file" name="image" id="image" capture="user" accept="image/*"
                         class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('image')
-                        border-red-500 @enderror" onchange="previewImage();">
+                        border-red-500 @enderror">
 
                         @error('image')
                             <div class="text-red-500 mt-2 text-sm">
@@ -101,4 +99,28 @@
         </form>
     </div>
 </div>
+
+@endsection
+
+@section('scripts')
+
+<script src="{{ asset('js/image.js') }}"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $(document).on('change', '#image', function (e) {
+            e.preventDefault();
+
+            const files = $(this).prop('files');
+            setImageSrc(files, null, setImagePreview);
+        });
+
+        function setImagePreview(src) {
+            $('#preview').attr("src", src);
+        }
+
+    });
+</script>
+
 @endsection

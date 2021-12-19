@@ -36,3 +36,12 @@
     @endauth
 </div>
 @endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $("#searchField").focus();
+            $("#searchField").select();
+        });
+    </script>
+@endsection
