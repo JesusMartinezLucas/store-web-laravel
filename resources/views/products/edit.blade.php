@@ -5,6 +5,7 @@
 <div class="flex justify-center">
     <div class="w-full bg-white m-6 rounded-lg">
 
+        <!-- Borrar después de eliminar la captura de imagen -->
         @if (session('status'))
             <div class="bg-green-500 p-4 rounded-lg mb-6 text-white text-center">
                 {{ session('status') }}
