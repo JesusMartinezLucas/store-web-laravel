@@ -5,7 +5,6 @@
 <div class="flex justify-center">
     <div class="w-full bg-white m-6 rounded-lg">
 
-        <!-- Borrar después de eliminar la captura de imagen -->
         @if (session('status'))
             <div class="bg-green-500 p-4 rounded-lg mb-6 text-white text-center">
                 {{ session('status') }}
@@ -86,10 +85,11 @@
 
                 <div class="flex flex-col w-full md:w-1/2 p-6 pt-0 md:pt-6 md:pl-3">
                     <div class="mb-4">
-                        <label for="image">Imagen del producto:</label>
-                        <input type="file" name="image" id="image" accept="image/*"
-                        class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('image')
-                        border-red-500 @enderror">
+                        <div class="w-full text-center">
+                            <label for="image" class="bg-blue-500 text-white px-4 py-2 rounded @error('image')
+                            border-red-500 @enderror">Foto</label>
+                        </div>
+                        <input type="file" name="image" id="image" capture="user" accept="image/*" class="hidden">
 
                         @error('image')
                             <div class="text-red-500 mt-2 text-sm">

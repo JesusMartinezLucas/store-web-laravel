@@ -74,7 +74,7 @@ class ProductController extends Controller
                 'image' => $fileNameToStore
             ]);
 
-        return redirect()->route('products.create');
+        return redirect()->route('products.index');
     }
 
     public function edit(Product $product){
@@ -111,7 +111,7 @@ class ProductController extends Controller
         }
         
         $product->save();
-        return redirect()->route('products.index');
+        return back()->with('status', 'El producto se actualizó correctamente');
 
     }
 
