@@ -18,7 +18,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::latest()->with('category')->paginate(20);
+        $products = Product::latest()->with('category')->paginate(12);
 
         return view('products.index', compact('products'));
 
@@ -37,7 +37,7 @@ class ProductController extends Controller
             ->orWhere('barcode', 'LIKE', "%{$search}%")
             ->latest()
             ->with('category')
-            ->paginate(20)
+            ->paginate(12)
             ->withQueryString();
     
         return view('products.index', compact('products', 'search'));
