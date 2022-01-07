@@ -115,35 +115,6 @@ class ProductController extends Controller
 
     }
 
-    public function imageUpdate(Request $request, Product $product){
-
-        $validator = Validator::make($request->all(), [
-            'image' => 'required|image|max:9999'
-        ]);
-
-        if($validator->fails()){
-            return response()->json([
-                'status' => 400,
-                'errors' => $validator->messages()
-            ]);
-        }
-
-        if ($request->hasFile('image')) {
-            if (!is_null($product->image)) {
-                self::deleteImage($product->image);
-            }
-
-            $product->image = self::storeImage($request->file('image'));
-        }
-
-        $product->save();
-        $request->session()->flash('status', 'La imagen se actualizó correctamente');
-
-        return response()->json([
-            'status' => 200,
-        ]);
-    }
-
     private static function storeImage($image){
         $filenameWithExt = $image->getClientOriginalName();
         $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);

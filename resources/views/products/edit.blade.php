@@ -112,36 +112,17 @@
             </div>
         </form>
 
-        <form action="{{ route('products.destroy', $product) }}" method="POST" class="text-right" >
+        <form action="{{ route('products.destroy', $product) }}" method="POST" class="text-left" >
             @csrf
             @method('DELETE')
             <button 
                 type="submit"
-                class="text-red-400 mr-6 mb-4" 
+                class="text-red-400 ml-6 mb-4" 
                 onclick="return confirm('¿Estás seguro de eliminar el producto?')"
             >
                 Eliminar
             </button>
         </form>
-
-        <h2 class="text-center">Actualizar imagen</h2>
-
-        <div class="flex flex-wrap">
-            <div class="w-full md:w-1/2 p-6 pb-0 md:pb-6 md:pr-3 mb-4 md:mb-0">
-                <video id="player" controls autoplay class="mb-4"></video>
-                <div id="playerErrors" class="text-red-500 mt-2 text-sm">  </div>
-                <button id="captureButton" class="hidden bg-blue-500 text-white px-4 py-2 rounded
-                    font-medium w-full">Capturar</button>
-            </div>
-            <div class="flex flex-col w-full md:w-1/2 p-6 pt-0 md:pt-6 md:pl-3">
-                <div class="flex flex-1 justify-center items-center mb-4">
-                    <canvas id="canvas" width=320 height=240></canvas>
-                    <div id="updateImageErrors" class="text-red-500 mt-2 text-sm">  </div>
-                </div>
-                <button type="button" id="updateImageButton" class="hidden bg-blue-500 text-white px-4 py-2 rounded
-                    font-medium w-full">Actualizar imagen</button>
-            </div>
-        </div>
     </div>
 
     <x-links.create :route="route('products.create')">
@@ -168,73 +149,6 @@ $(document).ready(function () {
     function setImagePreview(src) {
         $('#preview').attr("src", src);
     }
-
-});
-</script>
-
-<script>
-$(document).ready(function () {
-
-    $(window).scrollTop(0);
-
-    const player = $('#player').get(0);
-    const canvas = $('#canvas').get(0);
-    const context = canvas.getContext('2d');
-
-    const constraints = {
-        video: true,
-    };
-
-    navigator.mediaDevices.getUserMedia(constraints)
-        .then((stream) => {
-            player.srcObject = stream;
-            $('#captureButton').removeClass("hidden");
-        }).catch(function() {
-            $('#playerErrors').html("Sin cámara o sin permisos para usar la cámara");
-        });
-
-    $(document).on('click', '#captureButton', function (e) {
-        e.preventDefault();
-        
-        context.drawImage(player, 0, 0, canvas.width, canvas.height);
-        $('#updateImageButton').removeClass("hidden");
-    });
-
-    $(document).on('click', '#updateImageButton', function (e) {
-        e.preventDefault();
-        $('#updateImageErrors').html("");
-
-        canvas.toBlob(function(blob) {
-            const formData = new FormData();
-            const image = new File([blob], "image.jpeg", { type: "image/jpeg", });
-            formData.append('image', image);
-            formData.append('_method', 'PUT');
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                type: "POST",
-                url: "{{ route('products.image.update', $product) }}",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response.status === 400) {
-                        $('#updateImageErrors').html("");
-                        $.each(response.errors, function (key, error) {
-                            $('#updateImageErrors').append(`${error} `);
-                        });
-                    } else {
-                        location.reload();
-                    }
-                }
-            });
-        });
-    });
 
 });
 </script>
