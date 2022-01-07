@@ -18,31 +18,7 @@
 
             <div class="flex flex-wrap">
                 <div class="w-full md:w-1/2 p-6 pb-0 md:pb-6 md:pr-3">
-                    <div class="mb-2">
-                        <label for="category">Categoría</label>
-                        <select name="category" id="category" 
-                        class="bg-gray-100 border-2 w-full p-2 rounded-lg @error('category')
-                        border-red-500 @enderror">
-
-                            <option value="">Selecciona una categoría</option>
-                            @foreach($categories as $category)
-                                <option 
-                                    value="{{ $category->id }}"
-                                    @if(old('category', $product->category->id ) == $category->id) selected @endif
-                                >
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
-
-                        </select>
-
-                        @error('category')
-                            <div class="text-red-500 mt-2 text-sm">
-                                {{$message}}
-                            </div>
-                        @enderror
-                    </div>
-
+                    
                     <div class="mb-2">
                         <label for="barcode">Código de barras</label>
                         <input type="text" name="barcode" id="barcode"
@@ -69,7 +45,7 @@
                         @enderror
                     </div>
 
-                    <div class="mb-4 md:mb-0">
+                    <div class="mb-2">
                         <label for="price">Precio</label>
                         <input type="number" step="0.01" name="price" id="price" required
                         class="bg-gray-100 border-2 w-full p-2 rounded-lg @error('price')
@@ -81,6 +57,32 @@
                             </div>
                         @enderror
                     </div>
+
+                    <div class="mb-4 md:mb-0">
+                        <label for="category">Categoría</label>
+                        <select name="category" id="category" 
+                        class="bg-gray-100 border-2 w-full p-2 rounded-lg @error('category')
+                        border-red-500 @enderror">
+
+                            <option value="">Selecciona una categoría</option>
+                            @foreach($categories as $category)
+                                <option 
+                                    value="{{ $category->id }}"
+                                    @if(old('category', $product->category->id ) == $category->id) selected @endif
+                                >
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+
+                        </select>
+
+                        @error('category')
+                            <div class="text-red-500 mt-2 text-sm">
+                                {{$message}}
+                            </div>
+                        @enderror
+                    </div>
+
                 </div>
 
                 <div class="flex flex-col w-full md:w-1/2 p-6 pt-0 md:pt-6 md:pl-3">
