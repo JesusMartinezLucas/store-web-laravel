@@ -94,7 +94,7 @@
                 </div>
             </div>
             <div class="flex justify-center mb-6 mx-6">
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded
+                <button id="submitButton" type="submit" class="bg-blue-500 text-white px-4 py-2 rounded
                 font-medium w-full md:w-1/4">Guardar producto</button>
             </div>
         </form>
@@ -119,6 +119,10 @@
 
         function setImagePreview(src) {
             $('#preview').attr("src", src);
+
+            $('html, body').animate({
+                scrollTop: $("#submitButton").offset().top
+            }, 2000);
         }
 
     });
