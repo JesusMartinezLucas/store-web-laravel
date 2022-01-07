@@ -18,10 +18,10 @@
 
             <div class="flex flex-wrap">
                 <div class="w-full md:w-1/2 p-6 pb-0 md:pb-6 md:pr-3">
-                    <div class="mb-4">
-                        <label for="category" class="sr-only">Categoría</label>
+                    <div class="mb-2">
+                        <label for="category">Categoría</label>
                         <select name="category" id="category" 
-                        class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('category')
+                        class="bg-gray-100 border-2 w-full p-2 rounded-lg @error('category')
                         border-red-500 @enderror">
 
                             <option value="">Selecciona una categoría</option>
@@ -43,10 +43,10 @@
                         @enderror
                     </div>
 
-                    <div class="mb-4">
-                        <label for="barcode" class="sr-only">Código de barras</label>
-                        <input type="text" name="barcode" id="barcode" placeholder="Código de barras"
-                        class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('barcode')
+                    <div class="mb-2">
+                        <label for="barcode">Código de barras</label>
+                        <input type="text" name="barcode" id="barcode"
+                        class="bg-gray-100 border-2 w-full p-2 rounded-lg @error('barcode')
                         border-red-500 @enderror" value="{{ old('barcode', $product->barcode) }}">
 
                         @error('barcode')
@@ -56,11 +56,11 @@
                         @enderror
                     </div>
 
-                    <div class="mb-4">
-                        <label for="description" class="sr-only">Descripción</label>
+                    <div class="mb-2">
+                        <label for="description">Descripción</label>
                         <textarea name="description" id="description" rows="2" required class="bg-gray-100 block
-                        border-2 w-full p-4 rounded-lg @error('description') border-red-500 @enderror"
-                        placeholder="Descripción">{{ old('description', $product->description) }}</textarea>
+                        border-2 w-full p-2 rounded-lg @error('description') border-red-500 @enderror"
+                        >{{ old('description', $product->description) }}</textarea>
 
                         @error('description')
                         <div class="text-red-500 mt-2 text-sm">
@@ -70,9 +70,9 @@
                     </div>
 
                     <div class="mb-4 md:mb-0">
-                        <label for="price" class="sr-only">Precio</label>
-                        <input type="number" step="0.01" name="price" id="price" placeholder="Precio" required
-                        class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('price')
+                        <label for="price">Precio</label>
+                        <input type="number" step="0.01" name="price" id="price" required
+                        class="bg-gray-100 border-2 w-full p-2 rounded-lg @error('price')
                         border-red-500 @enderror" value="{{ old('price', $product->price) }}">
 
                         @error('price')
