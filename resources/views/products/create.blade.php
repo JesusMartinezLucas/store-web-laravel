@@ -4,7 +4,7 @@
 
 <div class="flex justify-center">
     <div class="w-full bg-white m-6 rounded-lg">
-        <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="createProductForm" action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-wrap">
                 <div class="w-full md:w-1/2 p-6 pb-0 md:pb-6 md:pr-3">
@@ -78,7 +78,7 @@
                 <div class="flex flex-col w-full md:w-1/2 p-6 pt-0 md:pt-6 md:pl-3">
                     <div class="mb-4">
                         <div class="w-full text-center">
-                            <label for="image" class="bg-blue-500 text-white px-4 py-2 rounded @error('image')
+                            <label for="image" class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded @error('image')
                             border-red-500 @enderror">Foto</label>
                         </div>
                         <input type="file" name="image" id="image" capture="user" accept="image/*" class="hidden">
@@ -128,6 +128,14 @@
                 scrollTop: $("#submitButton").offset().top
             }, 2000);
         }
+
+        $('#createProductForm').submit(function(e) {
+            e.preventDefault();
+            $('#submitButton').prop('disabled',true);
+            $('#submitButton').removeClass("bg-blue-500");
+            $('#submitButton').addClass("bg-gray-200 cursor-none");
+            this.submit();
+        });
 
     });
 </script>
