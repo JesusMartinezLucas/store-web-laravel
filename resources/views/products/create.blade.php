@@ -12,7 +12,7 @@
                     <div class="mb-2">
                         <label for="barcode">Código de barras:</label>
                         <input type="text" name="barcode" id="barcode" 
-                        class="bg-gray-100 border-2 w-full p-2 rounded-lg @error('barcode')
+                        class="bg-gray-100 border-2 border-gray-400 w-full p-2 rounded-lg @error('barcode')
                         border-red-500 @enderror" value="{{ old('barcode') }}">
 
                         @error('barcode')
@@ -25,7 +25,7 @@
                     <div class="mb-2">
                         <label for="description">Descripción:</label>
                         <textarea name="description" id="description" rows="2" required class="bg-gray-100 block
-                        border-2 w-full p-2 rounded-lg @error('description') border-red-500 @enderror"
+                        border-2 border-gray-400 w-full p-2 rounded-lg @error('description') border-red-500 @enderror"
                         >{{ old('description') }}</textarea>
 
                         @error('description')
@@ -38,7 +38,7 @@
                     <div class="mb-2">
                         <label for="price">Precio:</label>
                         <input type="number" step="0.01" name="price" id="price" required
-                        class="bg-gray-100 border-2 w-full p-2 rounded-lg @error('price')
+                        class="bg-gray-100 border-2 border-gray-400 w-full p-2 rounded-lg @error('price')
                         border-red-500 @enderror" value="{{ old('price') }}">
 
                         @error('price')
@@ -51,7 +51,7 @@
                     <div class="mb-4 md:mb-0">
                         <label for="category">Categoría:</label>
                         <select name="category" id="category" 
-                        class="bg-gray-100 border-2 w-full p-2 rounded-lg @error('category')
+                        class="bg-gray-100 border-2 border-gray-400 w-full p-2 rounded-lg @error('category')
                         border-red-500 @enderror">
 
                             <option value="">Selecciona una categoría</option>

@@ -8,7 +8,7 @@
             <div class="mb-4">
                 <label for="name" class="sr-only">Nombre</label>
                 <input type="text" name="name" id="name" placeholder="Nombre" required
-                class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('name')
+                class="bg-gray-100 border-2 border-gray-400 w-full p-4 rounded-lg @error('name')
                 border-red-500 @enderror" value="{{ old('name') }}">
 
                 @error('name')
