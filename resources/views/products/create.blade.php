@@ -112,6 +112,8 @@
 <script>
     $(document).ready(function () {
 
+        $("#barcode").focus();
+
         $(document).on('change', '#image', function (e) {
             e.preventDefault();
 
