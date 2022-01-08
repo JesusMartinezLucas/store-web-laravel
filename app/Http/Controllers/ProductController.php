@@ -18,7 +18,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::latest()->with('category')->paginate(20);
+        $products = Product::latest()->with('category')->paginate(12);
 
         return view('products.index', compact('products'));
 
@@ -37,7 +37,7 @@ class ProductController extends Controller
             ->orWhere('barcode', 'LIKE', "%{$search}%")
             ->latest()
             ->with('category')
-            ->paginate(20)
+            ->paginate(12)
             ->withQueryString();
     
         return view('products.index', compact('products', 'search'));
@@ -74,7 +74,7 @@ class ProductController extends Controller
                 'image' => $fileNameToStore
             ]);
 
-        return redirect()->route('products.edit', $product)->with('status', 'El producto se guardó correctamente');
+        return redirect()->route('products.index');
     }
 
     public function edit(Product $product){
@@ -113,35 +113,6 @@ class ProductController extends Controller
         $product->save();
         return back()->with('status', 'El producto se actualizó correctamente');
 
-    }
-
-    public function imageUpdate(Request $request, Product $product){
-
-        $validator = Validator::make($request->all(), [
-            'image' => 'required|image|max:9999'
-        ]);
-
-        if($validator->fails()){
-            return response()->json([
-                'status' => 400,
-                'errors' => $validator->messages()
-            ]);
-        }
-
-        if ($request->hasFile('image')) {
-            if (!is_null($product->image)) {
-                self::deleteImage($product->image);
-            }
-
-            $product->image = self::storeImage($request->file('image'));
-        }
-
-        $product->save();
-        $request->session()->flash('status', 'La imagen se actualizó correctamente');
-
-        return response()->json([
-            'status' => 200,
-        ]);
     }
 
     private static function storeImage($image){

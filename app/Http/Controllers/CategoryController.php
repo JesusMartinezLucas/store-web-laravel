@@ -15,7 +15,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::latest()->paginate(20);
+        $categories = Category::latest()->paginate(12);
         return view('categories.index', compact('categories'));
     }
 
@@ -45,7 +45,7 @@ class CategoryController extends Controller
 
     public function productsIndex(Category $category)
     {
-        $products = $category->products()->latest()->with('category')->paginate(20);
+        $products = $category->products()->latest()->with('category')->paginate(12);
 
         return view('categories.products.index', compact('category', 'products'));
     }
@@ -65,7 +65,7 @@ class CategoryController extends Controller
             })
             ->latest()
             ->with('category')
-            ->paginate(20)
+            ->paginate(12)
             ->withQueryString();
     
         return view('categories.products.index', compact('category', 'products', 'search'));
